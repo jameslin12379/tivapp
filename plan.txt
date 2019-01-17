@@ -8,19 +8,19 @@
 --> topic
 --> topicfollowing
 --> comment
---> upvote
+--> likes
 -Determine columns needed for each table
 --> user (id, email, password, username, description, imageurl, datecreated, dateedited)
---> post (id, name, description, imageurl, datecreated, dateedited, userid, topicid)
+--> post (id, name, description, imageurl, videourl, datecreated, dateedited, userid, topicid)
 --> topic (id, name, description, imageurl, datecreated, dateedited)
 --> topicfollowing (id, following, followed, datecreated, dateedited)
 --> comment (id, description, datecreated, dateedited, userid, postid)
---> upvote (id, upvote, upvoted, datecreated, dateedited)
+--> likes (id, likes, liked, datecreated, dateedited)
 -Determine relationships between tables (one to one, one to many, many to many)
 --> user and post (one to many)
 --> topicfollowing (many to many)
 --> user and comment (one to many)
---> upvote (many to many)
+--> likes (many to many)
 --> topic and post (one to many)
 --> post and comment (one to many)
 -Determine DBMS to use (MySQL, PostgreSQL, etc...)
@@ -92,14 +92,14 @@
       - /topicfollowings/id/edit GET (Disabled)
       - /topicfollowings/id PUT (Disabled)
       - /topicfollowings/id DELETE x
-      upvote
-       - /upvotes/new GET (Replaced by upvote button on post page) x
-       - /upvotes POST (Replaced by ajax post) x
-       - /upvotes/id GET (Disabled)
-       - /upvotes GET (Disabled)
-       - /upvotes/id/edit GET (Disabled)
-       - /upvotes/id PUT (Disabled)
-       - /upvotes/id DELETE x
+      likes
+       - /likes/new GET (Replaced by upvote button on post page) x
+       - /likes POST (Replaced by ajax post) x
+       - /likes/id GET (Disabled)
+       - /likes GET (Disabled)
+       - /likes/id/edit GET (Disabled)
+       - /likes/id PUT (Disabled)
+       - /likes/id DELETE x
       other routes
       - / GET x
       - /login GET x

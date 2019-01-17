@@ -53,23 +53,55 @@ function getusers(){
 });	
 }
 
-// Generate 100000 posts
-function getposts(){
+// Generate 100000 posts of type text
+function getpoststext(){
     let values = [];
     for (let i = 0; i < 10000; i++) {
         let randomName = faker.lorem.sentence();
         let randomDescription = faker.lorem.paragraph();
-        let imageurl = 'https://s3.amazonaws.com/postappbucket/images/michael-baccin-1284971-unsplash.jpg';
         let randomUserid = getRandomIntInclusive(1, 100000);
         let randomTopicid = getRandomIntInclusive(1, 70);       
-        values.push([randomName,randomDescription,imageurl,randomUserid,randomTopicid]);     
+        values.push([randomName,randomDescription,randomUserid,randomTopicid]);     
     }
-    connection.query('INSERT INTO post (name,description,imageurl,userid,topicid) VALUES ?', [values], function(error, results, fields) {
+    connection.query('INSERT INTO post (name,description,userid,topicid) VALUES ?', [values], function(error, results, fields) {
         if (error) throw error;
         console.log('saved');
         connection.end();
 });
 }
+
+// Generate 100000 posts of type image
+function getpostsimage(){
+    let values = [];
+    for (let i = 0; i < 10000; i++) {
+        let imageurl = 'https://s3.amazonaws.com/tivappbucket/images/eberhard-grossgasteiger-1269060-unsplash.jpg';
+        let randomUserid = getRandomIntInclusive(1, 100000);
+        let randomTopicid = getRandomIntInclusive(1, 70);
+        values.push([imageurl,randomUserid,randomTopicid]);
+    }
+    connection.query('INSERT INTO post (imageurl,userid,topicid) VALUES ?', [values], function(error, results, fields) {
+        if (error) throw error;
+        console.log('saved');
+        connection.end();
+});
+}
+
+// Generate 100000 posts of type video
+function getpostsvideo(){
+    let values = [];
+    for (let i = 0; i < 10000; i++) {
+        let videourl = 'https://s3.amazonaws.com/tivappbucket/videos/Black+And+White+Video+Of+Man+Infront+Of+The+Computer.mp4';
+        let randomUserid = getRandomIntInclusive(1, 100000);
+        let randomTopicid = getRandomIntInclusive(1, 70);
+        values.push([videourl,randomUserid,randomTopicid]);
+    }
+    connection.query('INSERT INTO post (videourl,userid,topicid) VALUES ?', [values], function(error, results, fields) {
+        if (error) throw error;
+        console.log('saved');
+        connection.end();
+});
+}
+
 
 // Generate 100000 comments
 function getcomments(){
@@ -77,7 +109,7 @@ function getcomments(){
     for (let i = 0; i < 10000; i++) {
         let randomDescription = faker.lorem.paragraph();
         let randomUserid = getRandomIntInclusive(1, 100000);
-        let randomPostid = getRandomIntInclusive(1, 100000);       
+        let randomPostid = getRandomIntInclusive(1, 300000);       
         values.push([randomDescription,randomUserid,randomPostid]);
     }
     connection.query('INSERT INTO comment (description,userid,postid) VALUES ?', [values], function(error, results, fields) {
@@ -108,14 +140,14 @@ function gettopicfollowings(){
 }
 
 // Generate likes (100000 posts * 100000 users = 10000000000 likes/generate 100 distinct likers for 100 posts thus 10000 rows)
-function getupvotes(){
+function getlikes(){
     let values = [];
         for (let i = 1; i < 101; i++){
                 for(let j = 1; j < 101; j++){
                         values.push([i,j]);
         }
         }
-    connection.query('INSERT INTO upvote (upvote, upvoted) VALUES ?', [values], function(error, results, fields) {
+    connection.query('INSERT INTO likes (likes, liked) VALUES ?', [values], function(error, results, fields) {
         if (error) throw error;
         console.log('saved');
         connection.end();
@@ -173,4 +205,12 @@ function getmorecommentsforpost(num){
 
 //getmorepostsforuser(81880)
 //getmorecommentsforuser(81880)
-getmorecommentsforpost(100096)
+//getmorecommentsforpost(100096)
+
+//getusers();
+//getpoststext();
+//getpostsimage();
+//getpostsvideo();
+//getcomments();
+//gettopicfollowings();
+getlikes();
