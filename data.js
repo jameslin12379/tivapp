@@ -204,7 +204,7 @@ function getmorecommentsforpost(num){
 }
 
 //getmorepostsforuser(81880)
-//getmorecommentsforuser(81880)
+getmorecommentsforuser(14793);
 //getmorecommentsforpost(100096)
 
 //getusers();
@@ -213,4 +213,4 @@ function getmorecommentsforpost(num){
 //getpostsvideo();
 //getcomments();
 //gettopicfollowings();
-getlikes();
+//getlikes();

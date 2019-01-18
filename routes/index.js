@@ -264,7 +264,7 @@ router.get('/users/:id/following', isResource, function(req, res){
         't.name, t.imageurl from topicfollowing as tf inner join topic as t on tf.followed = t.id where tf.following ' +
         '= ? ORDER BY tf.datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?;SELECT count(*) ' +
         'as followingcount FROM topicfollowing WHERE following = ?; SELECT count(*) as commentscount FROM comment WHERE userid = ?;' +
-        'SELECT count(*) as upvotescount FROM upvote WHERE upvote = ?;',
+        'SELECT count(*) as likescount FROM likes WHERE likes = ?;',
         [req.params.id, req.params.id, req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
             // error will be an Error if one occurred during the query
             // results will contain the results of the query
@@ -300,7 +300,7 @@ router.get('/users/:id/comments', isResource, function(req, res){
     connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?;SELECT id, ' +
         'description, datecreated FROM comment WHERE userid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?; SELECT' +
         ' count(*) as followingcount FROM topicfollowing WHERE following = ?;SELECT count(*) as commentscount FROM comment WHERE userid = ?;' +
-        'SELECT count(*) as upvotescount FROM upvote WHERE upvote = ?;',
+        'SELECT count(*) as likescount FROM likes WHERE likes = ?;',
         [req.params.id, req.params.id, req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
             // error will be an Error if one occurred during the query
             // results will contain the results of the query
