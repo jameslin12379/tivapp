@@ -238,9 +238,9 @@ router.post('/users', isNotAuthenticated, [
 // GET request for one User.
 router.get('/users/:id', isResource, function(req, res){
     connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?; SELECT id, ' +
-        'name, description, imageurl, datecreated FROM post WHERE userid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) ' +
+        'name, description, imageurl, videourl, datecreated, posttype FROM post WHERE userid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) ' +
         'as postscount FROM post WHERE userid = ?;SELECT count(*) as followingcount FROM topicfollowing WHERE following = ?;' +
-        'SELECT count(*) as commentscount FROM comment WHERE userid = ?;SELECT count(*) as upvotescount FROM upvote WHERE upvote = ?;',
+        'SELECT count(*) as commentscount FROM comment WHERE userid = ?;SELECT count(*) as likescount FROM likes WHERE likes = ?;',
         [req.params.id, req.params.id, req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
@@ -319,11 +319,11 @@ router.get('/users/:id/comments', isResource, function(req, res){
 });
 
 /// GET request for user upvotes sorted by created date in descending order limit by 10
-router.get('/users/:id/upvotes', isResource, function(req, res){
+router.get('/users/:id/likes', isResource, function(req, res){
     connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?;SELECT p.id, p.name,' +
-        'p.description, p.imageurl, p.datecreated from upvote as up inner join post as p on up.upvoted = p.id where up.upvote = ? ORDER BY up.datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?; SELECT' +
+        'p.description, p.imageurl, p.videourl, p.datecreated, p.posttype from likes as l inner join post as p on l.liked = p.id where l.likes = ? ORDER BY l.datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?; SELECT' +
         ' count(*) as followingcount FROM topicfollowing WHERE following = ?;SELECT count(*) as commentscount FROM comment WHERE userid = ?;' +
-        'SELECT count(*) as upvotescount FROM upvote WHERE upvote = ?;',
+        'SELECT count(*) as likescount FROM likes WHERE likes = ?;',
         [req.params.id, req.params.id, req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
             // error will be an Error if one occurred during the query
             // results will contain the results of the query
@@ -331,19 +331,19 @@ router.get('/users/:id/upvotes', isResource, function(req, res){
             if (error) {
                 throw error;
             }
-            res.render('users/upvotes', {
+            res.render('users/likes', {
                 req: req,
                 results: results,
-                title: 'User upvotes',
+                title: 'User likes',
                 moment: moment,
                 alert: req.flash('alert')
             });
         });
 });
 
-router.get('/api/users/:id/upvotes', isResource, function(req, res){
-    connection.query('SELECT p.id, p.name,p.description, p.imageurl, p.datecreated from upvote as up inner join post as p on up.upvoted = p.id where up.upvote = ? ORDER BY up.datecreated DESC LIMIT 10'
-        ,[req.params.id], function (error, results, fields) {
+router.get('/api/users/:id/likes', isResource, function(req, res){
+    connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.posttype from likes as l inner join post as p on l.liked = p.id where l.likes = ? ORDER BY l.datecreated DESC LIMIT 10 OFFSET ?'
+        ,[req.params.id, Number(req.query.skip)], function (error, results, fields) {
             // error will be an Error if one occurred during the query
             // results will contain the results of the query
             // fields will contain information about the returned results fields (if any)

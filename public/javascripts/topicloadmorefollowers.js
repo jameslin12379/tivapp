@@ -77,10 +77,10 @@ if (lastcharacter === '/'){
 url = url.substring(0, url.lastIndexOf('/'));
 let topicid = url.substring(url.lastIndexOf('/')+1);
 let count = document.getElementsByClassName('container-item').length;
-let total = Number(document.getElementById('topicfollowerscount').innerText);
+let total = Number(document.getElementById('followerscount').innerText);
 let skip = count;
 let loading = false;
-const API_URL = window.location.hostname.includes("dev") ? `https://www.post67.com.dev/api/topics/${topicid}/followers` : `https://www.post67.com/api/topics/${topicid}/followers`;
+const API_URL = window.location.hostname.includes("dev") ? `https://www.tiv67.com.dev/api/topics/${topicid}/followers` : `https://www.tiv67.com/api/topics/${topicid}/followers`;
 
 document.addEventListener('scroll', () => {
     const rect = loadMore.getBoundingClientRect();
@@ -93,33 +93,39 @@ document.addEventListener('scroll', () => {
                     const div = document.createElement('div');
                     div.classList.add("et_pb_module");
                     div.classList.add("et_pb_blurb");
-                    div.classList.add("et_pb_blurb_2");
+                    div.classList.add("et_pb_blurb_0");
+                    // div.classList.add("et_animated");
                     div.classList.add("et_pb_bg_layout_light");
                     div.classList.add("et_pb_text_align_left");
                     div.classList.add("et_pb_blurb_position_left");
-                    div.classList.add("mb-30");
-                    div.classList.add("box-shadow-none");
                     div.classList.add("container-item");
                     const div2 = document.createElement('div');
                     div2.classList.add("et_pb_blurb_content");
+                    div.appendChild(div2);
                     const div3 = document.createElement('div');
-                    div3.classList.add("et_pb_blurb_container");
+                    div3.classList.add("et_pb_main_blurb_image");
+                    div2.appendChild(div3);
                     const link = document.createElement('a');
                     link.setAttribute("href", `/users/${user.id}`);
+                    const span = document.createElement('span');
+                    span.classList.add("et_pb_image_wrap");
+                    const img = document.createElement('img');
+                    img.setAttribute("src", user.imageurl);
+                    // img.classList.add("et-waypoint");
+                    img.classList.add("et_pb_animation_top");
+                    div3.appendChild(link);
+                    link.appendChild(span);
+                    span.appendChild(img);
+                    const div4 = document.createElement('div');
+                    div4.classList.add("et_pb_blurb_container");
+                    div2.appendChild(div4);
                     const h4 = document.createElement('h4');
                     h4.classList.add("et_pb_module_header");
-                    h4.innerText = user.username;
-                    const div4 = document.createElement('div');
-                    div4.classList.add("et_pb_blurb_description");
-                    const i = document.createElement('img');
-                    i.setAttribute("src", user.imageurl);
-                    i.classList.add("width-100");
-                    div.appendChild(div2);
-                    div2.appendChild(div3);
-                    div3.appendChild(link);
-                    link.appendChild(h4);
-                    div3.appendChild(div4);
-                    div4.appendChild(i);
+                    div4.appendChild(h4);
+                    const link2 = document.createElement('a');
+                    link2.setAttribute("href", `/users/${user.id}`);
+                    link2.innerText = user.username;
+                    h4.appendChild(link2);
                     container.appendChild(div);
                 });
                 count = document.getElementsByClassName('container-item').length;
@@ -129,5 +135,4 @@ document.addEventListener('scroll', () => {
         }
     }
 });
-
 

@@ -1,6 +1,6 @@
 const loadMore = document.querySelector('#loadMore');
 const container = document.querySelector('#container');
-const API_URL = window.location.hostname.includes("dev") ? 'https://api.post67.com.dev/posts' : 'https://api.post67.com/posts';
+const API_URL = window.location.hostname.includes("dev") ? 'https://api.tiv67.com.dev/posts' : 'https://api.tiv67.com/posts';
 let url = window.location.pathname;
 const lastcharacter = url[url.length-1];
 if (lastcharacter === '/'){
