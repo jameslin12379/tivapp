@@ -815,7 +815,7 @@ router.get('/topics', function(req, res){
 // followed topic or not if yes pass unfollow to button value else pass follow to button value
 router.get('/topics/:id', isResource, function(req, res){
     connection.query('SELECT id, name, description, imageurl, datecreated FROM `topic` WHERE id = ?; SELECT id, ' +
-        'name, description, imageurl, datecreated FROM post WHERE topicid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) as postscount ' +
+        'name, description, imageurl, videourl, datecreated, posttype FROM post WHERE topicid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) as postscount ' +
         'FROM post WHERE topicid = ?;SELECT count(*) as followerscount FROM topicfollowing WHERE followed = ?',
         [req.params.id, req.params.id, req.params.id, req.params.id],
         function (error, results, fields) {

@@ -6,7 +6,7 @@
 // will be sent back and text of button should be changed to follow
 
 const URL = window.location.origin + '/topicfollowings';
-const topicfollowerscount = document.getElementById('topicfollowerscount');
+const followerscount = document.getElementById('followerscount');
 const button = document.getElementById('followunfollow');
 button.addEventListener('click', function(event){
     if (button.innerText === 'FOLLOW') {
@@ -27,7 +27,7 @@ function followTopic(){
     }).then(response => response.json())
         .then(result => {
             button.innerText = 'UNFOLLOW';
-            topicfollowerscount.innerText = (Number(topicfollowerscount.innerText) + 1) + '';
+            followerscount.innerText = (Number(followerscount.innerText) + 1) + '';
         });
 }
 
@@ -42,7 +42,7 @@ function unfollowTopic(){
     }).then(response => response.json())
         .then(result => {
             button.innerText = 'FOLLOW';
-            topicfollowerscount.innerText = (Number(topicfollowerscount.innerText) - 1) + '';
+            followerscount.innerText = (Number(followerscount.innerText) - 1) + '';
 
         });
 }
