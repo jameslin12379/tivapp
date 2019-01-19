@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<div id="et-main-area">
+<div id="et-main-area" class="pt-100">
     <div id="main-content">
         <article id="post-209034" class="post-209034 page type-page status-publish hentry">
             <div class="entry-content">
@@ -8,127 +8,151 @@
                     <div class="et_builder_inner_content et_pb_gutters3">
                         <div class="et_pb_section et_pb_section_1 et_section_specialty">
                             <div class="et_pb_row">
-                                <div class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough et_pb_column_single w-100 ptb-0">
-                                    <% if (alert.length > 0) { %>
-                                    <div class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18">
-                                        <%= alert %>
-                                    </div>
-                                    <% } %>
-
-                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_2 et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left box-shadow-none" style="">
+                                <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
+                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
                                         <div class="et_pb_blurb_content">
+                                            <!--<div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><img src="<%= results[0][0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top" /></span></div>-->
                                             <div class="et_pb_blurb_container">
-                                                <a href="/posts/<%= results[0][0].id %>"><h4 class="et_pb_module_header"><%= results[0][0].name %></h4></a>
-
+                                                <h4 class="et_pb_module_header">
+                                                    <% if (results[0][0].posttype === 1) { %>
+                                                    <a href="/posts/<%= results[0][0].id %>"><%= results[0][0].name %></a>
+                                                    <% } else { %>
+                                                    <a href="/posts/<%= results[0][0].id %>">/posts/<%= results[0][0].id %></a>
+                                                    <% } %>
+                                                </h4>
                                                 <div class="et_pb_blurb_description">
+                                                    <% if (results[0][0].posttype === 1) { %>
                                                     <p><%= results[0][0].description %></p>
-                                                    <img class=" "src="<%= results[0][0].imageurl %>">
-                                                    <p><strong><%= moment(results[0][0].datecreated).format('LLL') %></strong></p>
-                                                    <div class="flex">
-                                                        <a class="brown mr-1" href="/users/<%= results[0][0].userid %>"><p><%= results[0][0].username %></p></a>
-                                                        <a class="brown mr-1" href="/topics/<%= results[0][0].topicid %>"><p><%= results[0][0].topicname %></p></a>
-                                                        <span class=" brown mr-1"><p><span id="commentscount"><%= results[2][0].commentscount %></span> Comments</p></span>
-                                                        <span class=" brown mr-1"><p><span id="upvotescount"><%= results[3][0].upvotescount %></span> Likes</p></span>
+                                                    <% } else if (results[0][0].posttype === 2) { %>
+                                                    <img src="<%= results[0][0].imageurl %>">
+                                                    <% } else { %>
+                                                    <video controls controlsList="nodownload" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                                                        <source src="<%= results[0][0].videourl %>" type="video/mp4">
+                                                    </video>
+                                                    <% } %>
+                                                    <p class="pb-1"><strong><%= moment(results[0][0].datecreated).format('LLL') %></strong></p>
+                                                    <div id="item-other-paddingnone">
+                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].userid %>"><%= results[0][0].username %></a></strong></p>
+                                                        <p><strong><a class="brown" href="/topics/<%= results[0][0].topicid %>"><%= results[0][0].topicname %></a></strong></p>
+                                                        <p><strong><span class="brown"><span id="commentscount"><%= results[2][0].commentscount %></span> Comments</span></strong></p>
+                                                        <p><strong><span class="brown"><span id="likescount"><%= results[3][0].likescount %></span> Likes</span></strong></p>
                                                         <% if (req.isAuthenticated()) { %>
-                                                            <button id="upvoteunupvote" class="brown fs-100p bd-none mr-1">
-                                                                <% if (result[0].status === 0) { %>
-                                                                Like
-                                                                <% } else { %>
-                                                                Liked
-                                                                <% } %>
-                                                            </button>
+                                                        <p><strong><button id="likeunlike" class="brown fs-100p bd-none fwbold">
+                                                            <% if (result[0].status === 0) { %>
+                                                            Like
+                                                            <% } else { %>
+                                                            Liked
+                                                            <% } %>
+                                                        </button></strong></p>
                                                         <% } %>
                                                         <% if (req.user === undefined) { %>
                                                         <% } else if (req.user.id !== results[0][0].userid) { %>
                                                         <% } else { %>
-                                                            <a class="brown mr-1" href="/posts/<%= results[0][0].id %>/edit">Edit</a>
-                                                                        <form action="/posts/<%= results[0][0].id %>?_method=DELETE" method="post">
-                                                                            <button type="submit" class="brown fs-100p bd-none">Delete</button>
-                                                                        </form>
+                                                        <p class="pb-1"><strong><a class="brown" href="/posts/<%= results[0][0].id %>/edit">Edit</a></strong></p>
+                                                        <form action="/posts/<%= results[0][0].id %>?_method=DELETE" method="post">
+                                                            <button type="submit" class="brown fs-100p bd-none fwbold">Delete</button>
+                                                        </form>
                                                         <% } %>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">-->
+                                    <!--<a class="et_pb_button et_pb_custom_button_icon et_pb_button_2 et_animated et_hover_enabled et_pb_bg_layout_light" href="#" data-icon="&#x45;">Full Profile</a>-->
+                                    <!--</div>-->
+                                </div>
 
+                                <% if (req.isAuthenticated()) { %>
+                                <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
+                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
+                                    <form class="contact100-form validate-form" action="/comments" method="post" id="commentform">
 
-
-                                    <% if (req.isAuthenticated()) { %>
-                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_2 et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left mb-30 box-shadow-none" style="">
-                                        <div class="et_pb_blurb_content">
-
-                                            <div class="et_pb_blurb_container displayb">
-                                        <form action="/comments" method="post" id="commentform">
-                                            <div id="emptyerror" class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 red hidden commentformerrors">
-                                                Empty description
-                                            </div>
-                                            <div id="lengtherror" class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 red hidden commentformerrors">
-                                                Description must be between 5-300 characters.
-                                            </div>
-                                        <div class="et_pb_newsletter_fields">
-                                            <p class="et_pb_newsletter_field et_pb_contact_field_last">
-                                                <textarea id="commentformtextarea" class="input width-100p pd-20 fs-20" placeholder="Description" name="description" rows="5" required></textarea>
-                                            </p>
-                                            <button class="submit-button floatr" type="submit" data-icon="">Comment</button>
+                                        <div id="emptyerror" class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 red hidden commentformerrors">
+                                            Empty description
                                         </div>
+                                        <div id="lengtherror" class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 red hidden commentformerrors">
+                                            Description must be between 5-300 characters.
+                                        </div>
+                                        <!--<div class="wrap-input100 validate-input" data-validate="Name is required">-->
+                                            <!--<input class="input100" type="text" name="name" placeholder="Full Name">-->
+                                            <!--<span class="focus-input100-1"></span>-->
+                                            <!--<span class="focus-input100-2"></span>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">-->
+                                            <!--<input class="input100" type="text" name="email" placeholder="Email">-->
+                                            <!--<span class="focus-input100-1"></span>-->
+                                            <!--<span class="focus-input100-2"></span>-->
+                                        <!--</div>-->
+
+                                        <div class="wrap-input100 validate-input" data-validate = "Message is required">
+                                            <textarea id="commentformtextarea" class="input100" placeholder="Description" name="description" required></textarea>
+                                            <span class="focus-input100-1"></span>
+                                            <span class="focus-input100-2"></span>
+                                        </div>
+                                        <button id="explore" class="et_pb_button et_pb_custom_button_icon et_pb_button_0 et_animated et_hover_enabled et_pb_bg_layout_light pdlr-1 fs-12 floatr" data-icon="&#x45;" type="submit">Comment</button>
+
+
+                                        <!--<div class="contact100-form-checkbox">-->
+                                            <!--<input class="input-checkbox100" id="ckb1" type="checkbox" name="copy-mail">-->
+                                            <!--<label class="label-checkbox100" for="ckb1">-->
+                                                <!--Send copy to my-email-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="container-contact100-form-btn">-->
+                                            <!--<button class="contact100-form-btn">-->
+                                                <!--Send Email-->
+                                            <!--</button>-->
+                                        <!--</div>-->
                                     </form>
                                     </div>
-                                        </div>
-                                    </div>
-                                    <% } %>
+                                </div>
 
+                                <% } %>
 
-
-                                    <div id="container">
-                                            <% for(var i=0; i < results[1].length; i++) { %>
-                                            <div class="et_pb_module et_pb_blurb et_pb_blurb_2 et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left mb-30 box-shadow-none container-item" style="">
-                                                <div class="et_pb_blurb_content">
-
-                                                    <div class="et_pb_blurb_container">
-                                                        <a href="/comments/<%= results[1][i].id %>"><h4 class="et_pb_module_header"><%= results[1][i].description %></h4></a>
-                                                        <div class="et_pb_blurb_description">
-
-                                                            <a href="/users/<%= results[1][i].userid %>"><h4 class="et_pb_module_header"><%= results[1][i].username %></h4></a>
-                                                            <p><strong><%= moment(results[1][i].datecreated).format('LLL') %></strong></p>
-                                                        </div>
+                                <div id="list" class="et_pb_column et_pb_column_2_3 et_pb_column_2   et_pb_specialty_column  et_pb_css_mix_blend_mode_passthrough">
+                                    <div id="container" class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0   et-last-child">
+                                        <% for(var i=0; i < results[1].length; i++) { %>
+                                        <div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">
+                                            <div class="et_pb_blurb_content">
+                                                <!--<div class="et_pb_main_blurb_image"><a href="#"><span class="et_pb_image_wrap"><img src="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/coding-icon_4.jpg" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>-->
+                                                <div class="et_pb_blurb_container">
+                                                    <h4 class="et_pb_module_header">
+                                                        <a href="/comments/<%= results[1][i].id %>"><%= results[1][i].description %></a>
+                                                    </h4>
+                                                    <div class="et_pb_blurb_description">
+                                                        <a class="brown" href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a>
+                                                        <p><strong><%= moment(results[1][i].datecreated).format('LLL') %></strong></p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <% } %>
-                                    </div>
-
-                                        <div id="loadMore">
                                         </div>
-
-
-
-
-
+                                        <% } %>
+                                    </div>
+                                    <div id="loadMore">
+                                    </div>
                                 </div>
+
                             </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div> </div>
-    </article>
-</div>
-
-</div>
+                        </div> </div>
+                </div> </div>
+        </article>
+    </div>
 
 
-<script src="/javascripts/postloadmorecomments.js"></script>
+    <script src="/javascripts/postloadmorecomments.js"></script>
 
 
-<% if (req.isAuthenticated()) { %>
-<script src="/javascripts/postcreatecomment.js"></script>
-<script src="/javascripts/postupvoteunupvote.js"></script>
+    <% if (req.isAuthenticated()) { %>
+    <script src="/javascripts/postcreatecomment.js"></script>
+    <script src="/javascripts/postlikeunlike.js"></script>
 
-<% } %>
+    <% } %>
 
 
-<% include ../partials/footer %>
+    <% include ../partials/footer %>
+
+
+

@@ -1,6 +1,6 @@
 
 
-<% include ../partials/header %>
+<% include ../../partials/header %>
 
 
 <div id="et-main-area">
@@ -15,8 +15,8 @@
                                     <div class="et_pb_module et_pb_signup_0 et_hover_enabled et_pb_newsletter_layout_left_right et_pb_newsletter et_pb_subscribe clearfix et_pb_bg_layout_dark  et_pb_text_align_left et_pb_no_bg">
 
                                         <div class="et_pb_newsletter_form">
-                                            <h1 class="text-center pb-2 fw-700 lh-13 white">Post</h1>
-                                            <form action="/posts" method="post" enctype="multipart/form-data">
+                                            <h1 class="text-center pb-2 fw-700 lh-13 white">Post text</h1>
+                                            <form action="/texts" method="post">
 
                                                 <% if (errors.length > 0) { %>
                                                 <% for(var i = 0; i < errors.length; i++) { %>
@@ -30,14 +30,6 @@
                                                 <!--<h2>Success!</h2>-->
                                                 <!--</div>-->
                                                 <div class="et_pb_newsletter_fields">
-                                                    <p class="et_pb_newsletter_field et_pb_contact_field_last">
-                                                    <select name="posttype" required>
-                                                        <option value="">--Please choose an option--</option>
-                                                        <option value="text">Text</option>
-                                                        <option value="image">Image</option>
-                                                        <option value="video">Video</option>
-                                                    </select>
-                                                    </p>
 
                                                     <p class="et_pb_newsletter_field et_pb_contact_field_last">
                                                         <input class="input" type="text" placeholder="Name" name="name" <% if (inputs.length > 0) { %>value="<%=inputs[0].name%>"<% } %> required autofocus>
@@ -45,14 +37,7 @@
                                                     <p class="et_pb_newsletter_field et_pb_contact_field_last">
                                                         <textarea class="input" placeholder="Description" name="description" rows="5" cols="5" required><% if (inputs.length > 0) { %><%=inputs[0].description%><% } %></textarea>
                                                     </p>
-                                                    <p class="et_pb_newsletter_field et_pb_contact_field_last">
-                                                        <input type="file" class="input" name="file" accept="image/*" required>
 
-                                                    </p>
-                                                    <p class="et_pb_newsletter_field et_pb_contact_field_last">
-                                                        <input type="file" class="input" name="file" accept="image/*" required>
-
-                                                    </p>
                                                     <p class="et_pb_newsletter_field et_pb_contact_field_last">
                                                         <select class="input" name="topic" required>
                                                             <!--<option>Select a topic</option>-->
@@ -161,7 +146,7 @@
     </div>
 
 </div>
-<% include ../partials/footer %>
+<% include ../../partials/footer %>
 
 
 
