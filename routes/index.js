@@ -186,6 +186,8 @@ router.get('/users/new', isNotAuthenticated, function(req, res){
     });
 });
 
+
+
 // POST request for creating User.
 router.post('/users', isNotAuthenticated, [
         // validation
@@ -380,10 +382,10 @@ router.get('/users/:id/edit', isResource, isAuthenticated, isOwnResource, functi
 router.put('/users/:id', isResource, isAuthenticated, isOwnResource, upload.single('file'), [
     body('email', 'Empty email').not().isEmpty(),
     body('username', 'Empty username').not().isEmpty(),
-    body('description', 'Empty password').not().isEmpty(),
+    body('description', 'Empty description').not().isEmpty(),
     body('email', 'Email must be between 5-200 characters.').isLength({min:5, max:200}),
     body('username', 'Username must be between 5-200 characters.').isLength({min:5, max:200}),
-    body('description', 'Description must be between 5-500 characters.').isLength({min:5, max:500}),
+    body('description', 'Description must be between 5-200 characters.').isLength({min:5, max:200}),
     body('email', 'Invalid email').isEmail()
 ], (req, res) => {
     // check if inputs are valid
@@ -422,7 +424,7 @@ router.put('/users/:id', isResource, isAuthenticated, isOwnResource, upload.sing
         // delete associated image from bucket, update row from DB with email, username, description, imageurl
         // console.log(req.file);
         const uploadParams = {
-            Bucket: 'postappbucket', // pass your bucket name
+            Bucket: 'tivappbucket', // pass your bucket name
             Key: 'profiles/' + req.file.originalname, // file will be saved as testBucket/contacts.csv
             Body: req.file.buffer,
             ContentType: req.file.mimetype
@@ -431,9 +433,9 @@ router.put('/users/:id', isResource, isAuthenticated, isOwnResource, upload.sing
             if (err) {
                 console.log("Error", err);
             } if (data) {
-                if (req.user.imageurl !== 'https://s3.amazonaws.com/postappbucket/profiles/blank-profile-picture-973460_640.png'){
+                if (req.user.imageurl !== 'https://s3.amazonaws.com/tivappbucket/profiles/blank-profile-picture-973460_640+(1).png'){
                     const uploadParams2 = {
-                        Bucket: 'postappbucket', // pass your bucket name
+                        Bucket: 'tivappbucket', // pass your bucket name
                         Key: 'profiles/' + req.body.imageurl.substring(req.body.imageurl.lastIndexOf('/') + 1) // file will be saved as testBucket/contacts.csv
                     };
                     s3.deleteObject(uploadParams2, function(err, data) {

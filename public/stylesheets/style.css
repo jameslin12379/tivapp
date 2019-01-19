@@ -68,6 +68,10 @@
     padding: 20px;
 }
 
+.pd-top-20 {
+    padding-top: 20px!important;
+}
+
 .pd-none {
     padding: 0;
 }

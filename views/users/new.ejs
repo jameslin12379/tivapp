@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 
 
@@ -27,7 +27,7 @@
                                                 <% if (errors.length > 0) { %>
                                                 <% for(var i = 0; i < errors.length; i++) { %>
                                                 <div class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 red">
-                                                    <%= errors[i] %>
+                                                    <%= errors[i].msg %>
                                                 </div>
                                                 <% } %>
                                                 <% } %>
@@ -80,6 +80,6 @@
     </div>
 
 
-    <% include ./partials/footer %>
+    <% include ../partials/footer %>
 
 
