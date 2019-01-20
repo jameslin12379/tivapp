@@ -11,7 +11,7 @@
                                 <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
                                     <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
                                         <div class="et_pb_blurb_content">
-                                            <div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><img src="<%= results[0][0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top" /></span></div>
+                                            <div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><img src="<%= results[0][0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image-large" /></span></div>
                                             <div class="et_pb_blurb_container">
                                                 <h4 class="et_pb_module_header"><%= results[0][0].name %></h4>
                                                 <div class="et_pb_blurb_description">
@@ -34,7 +34,7 @@
                                         <% for(var i=0; i < results[1].length; i++) { %>
                                         <div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">
                                             <div class="et_pb_blurb_content">
-                                                <div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].id %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>
+                                                <div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].id %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
                                                 <div class="et_pb_blurb_container">
                                                     <h4 class="et_pb_module_header">
                                                         <a href="/users/<%= results[1][i].id %>"><%= results[1][i].username %></a>

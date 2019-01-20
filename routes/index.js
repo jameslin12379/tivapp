@@ -137,7 +137,7 @@ router.get('/', function(req, res, next) {
     if (!req.isAuthenticated()){
         res.render('home/index', {
             req: req,
-            title: 'POST67.com',
+            title: 'TIV67.com',
             alert: req.flash('alert')
         });
     }
@@ -152,7 +152,7 @@ router.get('/', function(req, res, next) {
         if (results[0].status === 0){
             res.render('home/index', {
                 req: req,
-                title: 'POST67.com',
+                title: 'TIV67.com',
                 alert: req.flash('alert')
             });
         }
@@ -166,7 +166,7 @@ router.get('/', function(req, res, next) {
                 res.render('home/indexfeed', {
                     req: req,
                     results: results,
-                    title: 'POST67.com',
+                    title: 'TIV67.com',
                     alert: req.flash('alert')
                 });
             }

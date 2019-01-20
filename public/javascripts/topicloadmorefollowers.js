@@ -113,6 +113,7 @@ document.addEventListener('scroll', () => {
                     img.setAttribute("src", user.imageurl);
                     // img.classList.add("et-waypoint");
                     img.classList.add("et_pb_animation_top");
+                    img.classList.add("item-image");
                     div3.appendChild(link);
                     link.appendChild(span);
                     span.appendChild(img);
