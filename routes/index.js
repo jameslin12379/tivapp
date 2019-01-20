@@ -597,7 +597,6 @@ router.post('/images', isAuthenticated, upload.single('file'), [
                         // fields will contain information about the returned results fields (if any)
                         if (error) {
                             throw error;
-
                         }
                         req.flash('alert', 'Image created.');
                         res.redirect(`/users/${req.user.id}`);
@@ -656,7 +655,6 @@ router.post('/videos', isAuthenticated, upload.single('file'), [
                         // fields will contain information about the returned results fields (if any)
                         if (error) {
                             throw error;
-
                         }
                         req.flash('alert', 'Video created.');
                         res.redirect(`/users/${req.user.id}`);
@@ -793,6 +791,26 @@ router.get('/api/posts/:id/comments', isResource, function(req, res){
 });
 
 // GET request to update Post.
+// router.get('/posts/:id/edit', isResource, isAuthenticated, isOwnResource, function(req, res){
+//     connection.query('SELECT id, name, description, imageurl, videourl, topicid, posttype FROM post WHERE id = ?', [req.params.id],
+//         function (error, results, fields) {
+//             // error will be an Error if one occurred during the query
+//             // results will contain the results of the query
+//             // fields will contain information about the returned results fields (if any)
+//             if (error) {
+//                 throw error;
+//             }
+//                 res.render('posts/edit', {
+//                     req: req,
+//                     results: results,
+//                     title: 'Edit post',
+//                     errors: req.flash('errors'),
+//                     inputs: req.flash('inputs')
+//                 });
+//
+//         });
+// });
+
 router.get('/posts/:id/edit', isResource, isAuthenticated, isOwnResource, function(req, res){
     connection.query('SELECT id, name, description, imageurl, videourl, topicid, posttype FROM post WHERE id = ?', [req.params.id],
         function (error, results, fields) {
@@ -802,19 +820,97 @@ router.get('/posts/:id/edit', isResource, isAuthenticated, isOwnResource, functi
             if (error) {
                 throw error;
             }
-                res.render('posts/edit', {
-                    req: req,
-                    results: results,
-                    title: 'Edit post',
-                    errors: req.flash('errors'),
-                    inputs: req.flash('inputs')
-                });
-
+            if (results[0].posttype !== 1) {
+                res.redirect(`/posts/${req.params.id}`);
+            }
+            res.render('posts/edit', {
+                req: req,
+                results: results,
+                title: 'Edit post',
+                errors: req.flash('errors'),
+                inputs: req.flash('inputs')
+            });
         });
 });
 
 // PUT request to update Post.
-router.put('/posts/:id', isResource, isAuthenticated, isOwnResource, upload.single('file'), [
+// router.put('/posts/:id', isResource, isAuthenticated, isOwnResource, upload.single('file'), [
+//     body('name', 'Empty name.').not().isEmpty(),
+//     body('description', 'Empty description.').not().isEmpty(),
+//     body('topic', 'Empty topic').not().isEmpty(),
+//     body('name', 'Name must be between 5-200 characters.').isLength({min:5, max:200}),
+//     body('description', 'Description must be between 5-300 characters.').isLength({min:5, max:300})
+// ], (req, res) => {
+//     // check if inputs are valid
+//     // if yes then upload picture to S3, get new imageurl, check existing imageurl and if it is not
+//     // default picture delete it using link, save imageurl and other fields into DB and if successful
+//     // return to user home page
+//     const errors = validationResult(req);
+//     let errorsarray = errors.array();
+//     // file is not empty
+//     // file size limit (max 30mb)
+//     // file type is image
+//     if (req.file.size === 0){
+//         errorsarray.push({msg: "File cannot be empty."});
+//     }
+//     if (req.file.mimetype.slice(0, 5) !== 'image'){
+//         errorsarray.push({msg: "File type needs to be image."});
+//     }
+//     if (req.file.size > 30000000){
+//         errorsarray.push({msg: "File cannot exceed 30MB."});
+//     }
+//     if (errorsarray.length !== 0) {
+//         // There are errors. Render form again with sanitized values/errors messages.
+//         // Error messages can be returned in an array using `errors.array()`.
+//         req.flash('errors', errorsarray);
+//         req.flash('inputs', {name: req.body.name, description: req.body.description, topicid: req.body.topic});
+//         res.redirect(req._parsedOriginalUrl.pathname + '/edit');
+//     }
+//     else {
+//         sanitizeBody('name').trim().escape();
+//         sanitizeBody('description').trim().escape();
+//         sanitizeBody('topic').trim().escape();
+//         const name = req.body.name;
+//         const description = req.body.description;
+//         const topic = req.body.topic;
+//         // upload image to AWS, get imageurl, check existing imageurl and if not pointing to default profile picture,
+//         // delete associated image from bucket, update row from DB with email, username, description, imageurl
+//         // console.log(req.file);
+//         const uploadParams = {
+//             Bucket: 'postappbucket', // pass your bucket name
+//             Key: 'images/' + req.file.originalname, // file will be saved as testBucket/contacts.csv
+//             Body: req.file.buffer,
+//             ContentType: req.file.mimetype
+//         };
+//         s3.upload (uploadParams, function (err, data) {
+//             if (err) {
+//                 console.log("Error", err);
+//             } if (data) {
+//                     const uploadParams2 = {
+//                         Bucket: 'postappbucket', // pass your bucket name
+//                         Key: 'images/' + req.body.imageurl.substring(req.body.imageurl.lastIndexOf('/') + 1) // file will be saved as testBucket/contacts.csv
+//                     };
+//                     s3.deleteObject(uploadParams2, function(err, data) {
+//                         if (err) console.log(err, err.stack);  // error
+//                         else     console.log();                 // deleted
+//                     });
+//
+//                 connection.query('UPDATE post SET name = ?, description = ?, imageurl = ?, topicid = ? WHERE id = ?', [name, description, data.Location, topic, req.params.id], function (error, results, fields) {
+//                     // error will be an Error if one occurred during the query
+//                     // results will contain the results of the query
+//                     // fields will contain information about the returned results fields (if any)
+//                     if (error) {
+//                         throw error;
+//                     }
+//                     req.flash('alert', 'Post edited.');
+//                     res.redirect(req._parsedOriginalUrl.pathname);
+//                 });
+//             }
+//         });
+//     }
+// });
+
+router.put('/posts/:id', isResource, isAuthenticated, isOwnResource, [
     body('name', 'Empty name.').not().isEmpty(),
     body('description', 'Empty description.').not().isEmpty(),
     body('topic', 'Empty topic').not().isEmpty(),
@@ -827,18 +923,6 @@ router.put('/posts/:id', isResource, isAuthenticated, isOwnResource, upload.sing
     // return to user home page
     const errors = validationResult(req);
     let errorsarray = errors.array();
-    // file is not empty
-    // file size limit (max 30mb)
-    // file type is image
-    if (req.file.size === 0){
-        errorsarray.push({msg: "File cannot be empty."});
-    }
-    if (req.file.mimetype.slice(0, 5) !== 'image'){
-        errorsarray.push({msg: "File type needs to be image."});
-    }
-    if (req.file.size > 30000000){
-        errorsarray.push({msg: "File cannot exceed 30MB."});
-    }
     if (errorsarray.length !== 0) {
         // There are errors. Render form again with sanitized values/errors messages.
         // Error messages can be returned in an array using `errors.array()`.
@@ -853,29 +937,7 @@ router.put('/posts/:id', isResource, isAuthenticated, isOwnResource, upload.sing
         const name = req.body.name;
         const description = req.body.description;
         const topic = req.body.topic;
-        // upload image to AWS, get imageurl, check existing imageurl and if not pointing to default profile picture,
-        // delete associated image from bucket, update row from DB with email, username, description, imageurl
-        // console.log(req.file);
-        const uploadParams = {
-            Bucket: 'postappbucket', // pass your bucket name
-            Key: 'images/' + req.file.originalname, // file will be saved as testBucket/contacts.csv
-            Body: req.file.buffer,
-            ContentType: req.file.mimetype
-        };
-        s3.upload (uploadParams, function (err, data) {
-            if (err) {
-                console.log("Error", err);
-            } if (data) {
-                    const uploadParams2 = {
-                        Bucket: 'postappbucket', // pass your bucket name
-                        Key: 'images/' + req.body.imageurl.substring(req.body.imageurl.lastIndexOf('/') + 1) // file will be saved as testBucket/contacts.csv
-                    };
-                    s3.deleteObject(uploadParams2, function(err, data) {
-                        if (err) console.log(err, err.stack);  // error
-                        else     console.log();                 // deleted
-                    });
-
-                connection.query('UPDATE post SET name = ?, description = ?, imageurl = ?, topicid = ? WHERE id = ?', [name, description, data.Location, topic, req.params.id], function (error, results, fields) {
+        connection.query('UPDATE post SET name = ?, description = ?, topicid = ? WHERE id = ?', [name, description, topic, req.params.id], function (error, results, fields) {
                     // error will be an Error if one occurred during the query
                     // results will contain the results of the query
                     // fields will contain information about the returned results fields (if any)
@@ -887,8 +949,6 @@ router.put('/posts/:id', isResource, isAuthenticated, isOwnResource, upload.sing
                 });
             }
         });
-    }
-});
 
 // DELETE request to delete Post.
 router.delete('/posts/:id', isResource, isAuthenticated, isOwnResource, function(req, res){
