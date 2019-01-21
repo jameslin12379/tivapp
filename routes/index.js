@@ -95,16 +95,21 @@ function isOwnResource(req, res, next) {
 function isResource(req, res, next) {
     let uri = req._parsedOriginalUrl.path;
     uri = uri.substring(1);
+    if (uri.includes('api/')){
+        uri = uri.substring(4);
+    }
     uri = uri.substring(0, uri.lastIndexOf('/'));
+
     if (uri.includes('/')){
         uri = uri.substring(0, uri.lastIndexOf('/'));
     }
     if (uri.includes('?')){
         uri = uri.substring(0, uri.lastIndexOf('?'));
     }
-    if (uri.includes('api/')){
-        uri = uri.substring(4);
-    }
+    // if (uri.includes('api/')){
+    //     uri = uri.substring(4);
+    // }
+
     uri = uri.substring(0, uri.length - 1);
     let table = uri;
     let resourceid = req.params.id;
@@ -237,10 +242,11 @@ router.post('/users', isNotAuthenticated, [
     }
 );
 
+// SELECT id, ' +
+// 'name, description, imageurl, videourl, datecreated, posttype FROM post WHERE userid = ? ORDER BY datecreated DESC LIMIT 10
 // GET request for one User.
 router.get('/users/:id', isResource, function(req, res){
-    connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?; SELECT id, ' +
-        'name, description, imageurl, videourl, datecreated, posttype FROM post WHERE userid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) ' +
+    connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?; SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.userid = ? ORDER BY p.datecreated DESC LIMIT 10;SELECT count(*) ' +
         'as postscount FROM post WHERE userid = ?;SELECT count(*) as followingcount FROM topicfollowing WHERE following = ?;' +
         'SELECT count(*) as commentscount FROM comment WHERE userid = ?;SELECT count(*) as likescount FROM likes WHERE likes = ?;',
         [req.params.id, req.params.id, req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
@@ -257,6 +263,18 @@ router.get('/users/:id', isResource, function(req, res){
             moment: moment,
             alert: req.flash('alert')
         });
+    });
+});
+
+router.get('/api/users/:id', isResource, function(req, res){
+    connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.userid = ? ORDER BY p.datecreated DESC LIMIT 10 OFFSET ?;', [req.params.id, Number(req.query.skip)], function (error, results, fields) {
+        // error will be an Error if one occurred during the query
+        // results will contain the results of the query
+        // fields will contain information about the returned results fields (if any)
+        if (error) {
+            throw error;
+        }
+        res.status(200).json({ results: results });
     });
 });
 
@@ -299,8 +317,8 @@ router.get('/api/users/:id/following', isResource, function(req, res){
 
 /// GET request for user comments sorted by created date in descending order limit by 10
 router.get('/users/:id/comments', isResource, function(req, res){
-    connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?;SELECT id, ' +
-        'description, datecreated FROM comment WHERE userid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?; SELECT' +
+    connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?;SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on ' +
+        'c.userid = u.id WHERE c.userid = ? ORDER BY c.datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?; SELECT' +
         ' count(*) as followingcount FROM topicfollowing WHERE following = ?;SELECT count(*) as commentscount FROM comment WHERE userid = ?;' +
         'SELECT count(*) as likescount FROM likes WHERE likes = ?;',
         [req.params.id, req.params.id, req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
@@ -320,10 +338,22 @@ router.get('/users/:id/comments', isResource, function(req, res){
         });
 });
 
+
+router.get('/api/users/:id/comments', isResource, function(req, res){
+    connection.query('SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on c.userid = u.id WHERE c.userid = ? ORDER BY c.datecreated DESC LIMIT 10 OFFSET ?', [req.params.id, Number(req.query.skip)], function (error, results, fields) {
+        // error will be an Error if one occurred during the query
+        // results will contain the results of the query
+        // fields will contain information about the returned results fields (if any)
+        if (error) {
+            throw error;
+        }
+        res.status(200).json({ results: results });
+    });
+});
+
 /// GET request for user upvotes sorted by created date in descending order limit by 10
 router.get('/users/:id/likes', isResource, function(req, res){
-    connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?;SELECT p.id, p.name,' +
-        'p.description, p.imageurl, p.videourl, p.datecreated, p.posttype from likes as l inner join post as p on l.liked = p.id where l.likes = ? ORDER BY l.datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?; SELECT' +
+    connection.query('SELECT id, username, description, imageurl, datecreated FROM user WHERE id = ?;SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id inner join likes as l on p.id = l.liked where l.likes = ? ORDER BY l.datecreated DESC LIMIT 10; SELECT count(*) as postscount FROM post WHERE userid = ?; SELECT' +
         ' count(*) as followingcount FROM topicfollowing WHERE following = ?;SELECT count(*) as commentscount FROM comment WHERE userid = ?;' +
         'SELECT count(*) as likescount FROM likes WHERE likes = ?;',
         [req.params.id, req.params.id, req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
@@ -344,7 +374,7 @@ router.get('/users/:id/likes', isResource, function(req, res){
 });
 
 router.get('/api/users/:id/likes', isResource, function(req, res){
-    connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.posttype from likes as l inner join post as p on l.liked = p.id where l.likes = ? ORDER BY l.datecreated DESC LIMIT 10 OFFSET ?'
+    connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id inner join likes as l on p.id = l.liked where l.likes = ? ORDER BY l.datecreated DESC LIMIT 10 OFFSET ?'
         ,[req.params.id, Number(req.query.skip)], function (error, results, fields) {
             // error will be an Error if one occurred during the query
             // results will contain the results of the query
@@ -735,7 +765,7 @@ router.post('/videos', isAuthenticated, upload.single('file'), [
 router.get('/posts/:id', isResource, function(req, res){
     connection.query('select p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, ' +
         'u.username, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.id = ?' +
-        '; SELECT c.id, c.description, c.datecreated, c.userid, u.username FROM comment as c inner join user as u on ' +
+        '; SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on ' +
         'c.userid = u.id WHERE c.postid = ? ORDER BY c.datecreated DESC LIMIT 10;SELECT count(*) as commentscount FROM comment WHERE postid = ?;SELECT count(*) as likescount FROM likes WHERE liked = ?;', [req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
@@ -779,7 +809,7 @@ router.get('/posts/:id', isResource, function(req, res){
 });
 
 router.get('/api/posts/:id/comments', isResource, function(req, res){
-    connection.query('SELECT c.id, c.description, c.datecreated, c.userid, u.username FROM comment as c inner join user as u on c.userid = u.id WHERE c.postid = ? ORDER BY c.datecreated DESC LIMIT 10 OFFSET ?', [req.params.id, Number(req.query.skip)], function (error, results, fields) {
+    connection.query('SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on c.userid = u.id WHERE c.postid = ? ORDER BY c.datecreated DESC LIMIT 10 OFFSET ?', [req.params.id, Number(req.query.skip)], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
         // fields will contain information about the returned results fields (if any)
@@ -989,7 +1019,7 @@ router.post('/comments', isAuthenticated, [
                         if (error) {
                             throw error;
                         }
-                        connection.query('SELECT c.id, c.description, c.datecreated, c.userid, u.username FROM comment as c inner join user as u on c.userid = u.id WHERE c.id = ?', [results.insertId],
+                        connection.query('SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on c.userid = u.id WHERE c.id = ?', [results.insertId],
                             function (error2, results2, fields2){
                                 if (error) {
                                     throw error;
@@ -1005,7 +1035,7 @@ router.post('/comments', isAuthenticated, [
 
 // GET request for one Comment.
 router.get('/comments/:id', isResource, function(req, res){
-    connection.query('SELECT c.id, c.description, c.datecreated, c.userid, u.username FROM comment as c inner join user as u on c.userid = u.id WHERE c.id = ?', [req.params.id], function (error, results, fields) {
+    connection.query('SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on c.userid = u.id WHERE c.id = ?', [req.params.id], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
         // fields will contain information about the returned results fields (if any)
@@ -1059,8 +1089,7 @@ router.get('/topics', function(req, res){
 // get topic information, get 10 images of the topic, if current user is logged in, check if he has
 // followed topic or not if yes pass unfollow to button value else pass follow to button value
 router.get('/topics/:id', isResource, function(req, res){
-    connection.query('SELECT id, name, description, imageurl, datecreated FROM `topic` WHERE id = ?; SELECT id, ' +
-        'name, description, imageurl, videourl, datecreated, posttype FROM post WHERE topicid = ? ORDER BY datecreated DESC LIMIT 10; SELECT count(*) as postscount ' +
+    connection.query('SELECT id, name, description, imageurl, datecreated FROM `topic` WHERE id = ?; SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.topicid = ? ORDER BY p.datecreated DESC LIMIT 10; SELECT count(*) as postscount ' +
         'FROM post WHERE topicid = ?;SELECT count(*) as followerscount FROM topicfollowing WHERE followed = ?',
         [req.params.id, req.params.id, req.params.id, req.params.id],
         function (error, results, fields) {
@@ -1095,6 +1124,18 @@ router.get('/topics/:id', isResource, function(req, res){
                 });
             }
         });
+});
+
+router.get('/api/topics/:id', isResource, function(req, res){
+    connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.topicid = ? ORDER BY p.datecreated DESC LIMIT 10 OFFSET ?;', [req.params.id, Number(req.query.skip)], function (error, results, fields) {
+        // error will be an Error if one occurred during the query
+        // results will contain the results of the query
+        // fields will contain information about the returned results fields (if any)
+        if (error) {
+            throw error;
+        }
+        res.status(200).json({ results: results });
+    });
 });
 
 /// GET request for topic followers sorted by created date in descending order limit by 10

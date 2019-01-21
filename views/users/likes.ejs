@@ -61,11 +61,25 @@
                                                             <source src="<%= results[1][i].videourl %>" type="video/mp4">
                                                         </video>
                                                         <% } %>
-                                                        <p><strong><%= moment(results[1][i].datecreated).format('LLL') %></strong></p>
+                                                        <div class="flex mt-15">
+                                                            <div class="pr-15">
+                                                                <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].userimageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></a>
+                                                            </div>
+                                                            <div>
+                                                                <div><a href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
+                                                                <div><a href="/topics/<%= results[1][i].topicid %>"><%= results[1][i].topicname %></a></div>
+                                                                <div><%= moment(results[1][i].datecreated).format('LLL') %></div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!--<div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].userimageurl %>" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>-->
+
                                             </div>
                                         </div>
+
+
                                         <% } %>
                                     </div>
                                     <div id="loadMore">

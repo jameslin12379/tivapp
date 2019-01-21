@@ -11,13 +11,14 @@
                                 <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
                                     <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
                                         <div class="et_pb_blurb_content">
-                                            <!--<div class="et_pb_main_blurb_image"><a href="#"><span class="et_pb_image_wrap"><img src="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/coding-icon_4.jpg" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>-->
+                                            <div class="et_pb_main_blurb_image"><a href="/users/<%= results[0].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
+
                                             <div class="et_pb_blurb_container">
                                                 <h4 class="et_pb_module_header">
-                                                    <a href="/comments/<%= results[0].id %>"><%= results[0].description %></a>
+                                                    <a class="brown" href="/users/<%= results[0].userid %>"><%= results[0].username %></a>
                                                 </h4>
                                                 <div class="et_pb_blurb_description">
-                                                    <a class="brown" href="/users/<%= results[0].userid %>"><%= results[0].username %></a>
+                                                    <a class="brown" href="/comments/<%= results[0].id %>"><%= results[0].description %></a>
                                                     <p><strong><%= moment(results[0].datecreated).format('LLL') %></strong></p>
                                                     <% if (req.user === undefined) { %>
                                                     <% } else if (req.user.id !== results[0].userid) { %>
@@ -26,6 +27,8 @@
                                                         <button type="submit" class="brown fs-100p bd-none pd-none">Delete</button>
                                                     </form>
                                                     <% } %>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -46,6 +49,5 @@
 
 
     <% include ../partials/footer %>
-
 
 

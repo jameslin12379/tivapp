@@ -204,12 +204,40 @@ document.addEventListener('scroll', () => {
                         video.appendChild(source);
                         div4.appendChild(video);
                     }
-                    const p2 = document.createElement('p');
-                    const strong = document.createElement('strong');
-                    strong.innerText = moment(post.datecreated).format('LLL');
-                    p2.appendChild(strong);
-                    div4.appendChild(p2);
+                    const div5 = document.createElement('div');
+                    div5.classList.add("flex");
+                    div5.classList.add("mt-15");
+                    div4.appendChild(div5);
+                    const div6 = document.createElement('div');
+                    div6.classList.add("pr-15");
+                    div5.appendChild(div6);
+                    l1 = document.createElement('a');
+                    l1.setAttribute("href", `/users/${post.userid}`);
+                    i1 = document.createElement('img');
+                    i1.setAttribute("src", post.userimageurl)
+                    i1.classList.add('et_pb_animation_top');
+                    i1.classList.add('item-image');
+                    l1.appendChild(i1);
+                    div6.appendChild(l1);
+                    div7 = document.createElement('div');
+                    div5.appendChild(div7);
+                    const div8 = document.createElement('div');
+                    l2 = document.createElement('a');
+                    l2.setAttribute("href", `/users/${post.userid}`);
+                    l2.innerText = post.username;
+                    div7.appendChild(div8);
+                    div8.appendChild(l2);
+                    const div9 = document.createElement('div');
+                    l3 = document.createElement('a');
+                    l3.setAttribute("href", `/topics/${post.topicid}`);
+                    l3.innerText = post.topicname;
+                    div7.appendChild(div9);
+                    div9.appendChild(l3);
+                    const div10 = document.createElement('div');
+                    div10.innerText = moment(post.datecreated).format('LLL');
+                    div7.appendChild(div10);
                     container.appendChild(div);
+
                 });
                 count = document.getElementsByClassName('container-item').length;
                 skip = count;

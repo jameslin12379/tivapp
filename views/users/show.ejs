@@ -21,13 +21,13 @@
                                                 <h4 class="et_pb_module_header"><%= results[0][0].username %></h4>
                                                 <div class="et_pb_blurb_description">
                                                     <div id="item-other-wide">
-                                                        <!--<p><strong><a class="brown" href="/topics/<%= results[0][0].id %>"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a></strong></p>-->
-                                                        <!--<p class="pb-1"><strong><a class="brown" href="/topics/<%= results[0][0].id %>/followers"><span id="followerscount"><%= results[3][0].followerscount %></span> Followers</a></strong></p>-->
+                                                        <!--<p><strong><a href="/topics/<%= results[0][0].id %>"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a></strong></p>-->
+                                                        <!--<p class="pb-1"><strong><a href="/topics/<%= results[0][0].id %>/followers"><span id="followerscount"><%= results[3][0].followerscount %></span> Followers</a></strong></p>-->
 
-                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].id %>"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a></strong></p>
-                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></strong></p>
-                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].id %>/comments"><%= results[4][0].commentscount %> Comments</a></strong></p>
-                                                        <p class="pb-1"><strong><a class="brown" href="/users/<%= results[0][0].id %>/likes"><%= results[5][0].likescount %> Likes</a></strong></p>
+                                                        <p><strong><a href="/users/<%= results[0][0].id %>"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a></strong></p>
+                                                        <p><strong><a href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></strong></p>
+                                                        <p><strong><a href="/users/<%= results[0][0].id %>/comments"><%= results[4][0].commentscount %> Comments</a></strong></p>
+                                                        <p class="pb-1"><strong><a href="/users/<%= results[0][0].id %>/likes"><%= results[5][0].likescount %> Likes</a></strong></p>
                                                     </div>
                                                     <p>Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
                                                     <p><%= results[0][0].description %></p>
@@ -75,9 +75,21 @@
                                                             <source src="<%= results[1][i].videourl %>" type="video/mp4">
                                                         </video>
                                                         <% } %>
-                                                        <p><strong><%= moment(results[1][i].datecreated).format('LLL') %></strong></p>
+                                                        <div class="flex mt-15">
+                                                            <div class="pr-15">
+                                                                <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].userimageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></a>
+                                                            </div>
+                                                            <div>
+                                                                <div><a href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
+                                                                <div><a href="/topics/<%= results[1][i].topicid %>"><%= results[1][i].topicname %></a></div>
+                                                                <div><%= moment(results[1][i].datecreated).format('LLL') %></div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!--<div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].userimageurl %>" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>-->
+
                                             </div>
                                         </div>
                                         <% } %>

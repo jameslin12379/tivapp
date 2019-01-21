@@ -89,6 +89,10 @@
     padding: 30px 40px;
 }
 
+.pr-15 {
+    padding-right: 15px!important;
+}
+
 .bg-white {
     background-color: #ffffff;
 }
@@ -211,6 +215,10 @@
 
 .mza {
     margin: 0 auto;
+}
+
+.mt-15 {
+    margin-top: 15px;
 }
 
 .mt-15 {
@@ -594,4 +602,8 @@
 
 .border-none {
     border: none!important;
+}
+
+a {
+    color: #8585bd!important;
 }
