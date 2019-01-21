@@ -9,15 +9,12 @@
                         <div class="et_pb_section et_pb_section_1 et_section_specialty">
                             <div class="et_pb_row">
                                 <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
-                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
+
+
+                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">
                                         <div class="et_pb_blurb_content">
-                                            <!--<div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><img src="<%= results[0][0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top" /></span></div>-->
+                                            <!--<div class="et_pb_main_blurb_image"><a href="#"><span class="et_pb_image_wrap"><img src="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/coding-icon_4.jpg" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>-->
                                             <div class="et_pb_blurb_container">
-                                                <% if (alert.length > 0) { %>
-                                                <div class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 colorgray">
-                                                    <%= alert %>
-                                                </div>
-                                                <% } %>
                                                 <h4 class="et_pb_module_header">
                                                     <% if (results[0][0].posttype === 1) { %>
                                                     <a href="/posts/<%= results[0][0].id %>"><%= results[0][0].name %></a>
@@ -35,39 +32,45 @@
                                                         <source src="<%= results[0][0].videourl %>" type="video/mp4">
                                                     </video>
                                                     <% } %>
-                                                    <p class="pb-1"><strong><%= moment(results[0][0].datecreated).format('LLL') %></strong></p>
-                                                    <div id="item-other-paddingnone">
-                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].userid %>"><%= results[0][0].username %></a></strong></p>
-                                                        <p><strong><a class="brown" href="/topics/<%= results[0][0].topicid %>"><%= results[0][0].topicname %></a></strong></p>
-                                                        <p><strong><span class="brown"><span id="commentscount"><%= results[2][0].commentscount %></span> Comments</span></strong></p>
-                                                        <p><strong><span class="brown"><span id="likescount"><%= results[3][0].likescount %></span> Likes</span></strong></p>
+                                                    <div class="flex mt-15">
+                                                        <div class="pr-15">
+                                                            <a href="/users/<%= results[0][0].userid %>"><img src="<%= results[0][0].userimageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></a>
+                                                        </div>
+                                                        <div>
+                                                            <div><a class="hd" href="/users/<%= results[0][0].userid %>"><%= results[0][0].username %></a></div>
+                                                            <div><a href="/topics/<%= results[0][0].topicid %>"><%= results[0][0].topicname %></a></div>
+                                                            <div><%= moment(results[0][0].datecreated).format('LLL') %></div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div id="item-other-paddingnone" class="mt-15">
+                                                        <p class="mr-15"><span class="brown"><span id="commentscount"><%= results[2][0].commentscount %></span> Comments</span></p>
+                                                        <p class="mr-15"><span class="brown"><span id="likescount"><%= results[3][0].likescount %></span> Likes</span></p>
                                                         <% if (req.isAuthenticated()) { %>
-                                                        <p><strong><button id="likeunlike" class="brown fs-100p bd-none fwbold">
-                                                            <% if (result[0].status === 0) { %>
-                                                            Like
-                                                            <% } else { %>
-                                                            Liked
-                                                            <% } %>
-                                                        </button></strong></p>
+                                                        <p class="mr-15"><button id="likeunlike" class="brown fs-100p bd-none pd-0">
+                                                                    <% if (result[0].status === 0) { %>
+                                                                    Like
+                                                                    <% } else { %>
+                                                                    Liked
+                                                                    <% } %>
+                                                                </button></p>
                                                         <% } %>
                                                         <% if (req.user === undefined) { %>
                                                         <% } else if (req.user.id !== results[0][0].userid) { %>
                                                         <% } else { %>
                                                         <% if (results[0][0].posttype === 1) { %>
-                                                        <p class="pb-1"><strong><a class="brown" href="/posts/<%= results[0][0].id %>/edit">Edit</a></strong></p>
+                                                        <p class="pb-1 mr-15"><a class="brown" href="/posts/<%= results[0][0].id %>/edit">Edit</a></p>
                                                         <% } %>
                                                         <form action="/posts/<%= results[0][0].id %>?_method=DELETE" method="post">
-                                                            <button type="submit" class="brown fs-100p bd-none fwbold">Delete</button>
+                                                            <button type="submit" class="brown fs-100p bd-none pd-0">Delete</button>
                                                         </form>
                                                         <% } %>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
-                                    <!--<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">-->
-                                    <!--<a class="et_pb_button et_pb_custom_button_icon et_pb_button_2 et_animated et_hover_enabled et_pb_bg_layout_light" href="#" data-icon="&#x45;">Full Profile</a>-->
-                                    <!--</div>-->
                                 </div>
 
                                 <% if (req.isAuthenticated()) { %>
@@ -122,22 +125,35 @@
                                 <div id="list" class="et_pb_column et_pb_column_2_3 et_pb_column_2   et_pb_specialty_column  et_pb_css_mix_blend_mode_passthrough">
                                     <div id="container" class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0   et-last-child">
                                         <% for(var i=0; i < results[1].length; i++) { %>
-                                        <div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">
-                                            <div class="et_pb_blurb_content">
-                                                <!--<div class="et_pb_main_blurb_image"><a href="#"><span class="et_pb_image_wrap"><img src="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/coding-icon_4.jpg" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>-->
-                                                <div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
+                                        <div class="flex mt-15">
+                                            <div class="pr-15">
+                                                <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></a>
+                                            </div>
+                                            <div>
+                                                <div><a class="hd" href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
+                                                <div><a href="/comments/<%= results[1][i].id %>"><%= results[1][i].description %></a></div>
+                                                <div><%= moment(results[1][i].datecreated).format('LLL') %></div>
 
-                                                <div class="et_pb_blurb_container">
-                                                    <h4 class="et_pb_module_header">
-                                                        <a class="brown" href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a>
-                                                    </h4>
-                                                    <div class="et_pb_blurb_description">
-                                                        <a class="brown" href="/comments/<%= results[1][i].id %>"><%= results[1][i].description %></a>
-                                                        <p><strong><%= moment(results[1][i].datecreated).format('LLL') %></strong></p>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
+
+
+                                        <!--<div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">-->
+                                            <!--<div class="et_pb_blurb_content">-->
+                                                <!--&lt;!&ndash;<div class="et_pb_main_blurb_image"><a href="#"><span class="et_pb_image_wrap"><img src="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/coding-icon_4.jpg" alt="" class="et-waypoint et_pb_animation_top" /></span></a></div>&ndash;&gt;-->
+                                                <!--<div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>-->
+
+                                                <!--<div class="et_pb_blurb_container">-->
+                                                    <!--<h4 class="et_pb_module_header">-->
+                                                        <!--<a class="brown" href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a>-->
+                                                    <!--</h4>-->
+                                                    <!--<div class="et_pb_blurb_description">-->
+                                                        <!--<a class="brown" href="/comments/<%= results[1][i].id %>"><%= results[1][i].description %></a>-->
+                                                        <!--<p><%= moment(results[1][i].datecreated).format('LLL') %></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
                                         <% } %>
                                     </div>
                                     <div id="loadMore">

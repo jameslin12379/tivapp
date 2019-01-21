@@ -547,7 +547,7 @@ router.post('/texts', isAuthenticated, [
         body('description', 'Empty description.').not().isEmpty(),
         body('topic', 'Empty topic').not().isEmpty(),
         body('name', 'Name must be between 5-200 characters.').isLength({min:5, max:200}),
-        body('description', 'Description must be between 5-300 characters.').isLength({min:5, max:300})
+        body('description', 'Description must be between 5-2000 characters.').isLength({min:5, max:2000})
     ], (req, res) => {
         const errors = validationResult(req);
         let errorsarray = errors.array();
@@ -763,9 +763,7 @@ router.post('/videos', isAuthenticated, upload.single('file'), [
 
 // GET request for one Post.
 router.get('/posts/:id', isResource, function(req, res){
-    connection.query('select p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, ' +
-        'u.username, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.id = ?' +
-        '; SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on ' +
+    connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.id = ? ORDER BY p.datecreated DESC LIMIT 10; SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on ' +
         'c.userid = u.id WHERE c.postid = ? ORDER BY c.datecreated DESC LIMIT 10;SELECT count(*) as commentscount FROM comment WHERE postid = ?;SELECT count(*) as likescount FROM likes WHERE liked = ?;', [req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query

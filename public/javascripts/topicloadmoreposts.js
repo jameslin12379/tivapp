@@ -275,6 +275,7 @@ document.addEventListener('scroll', () => {
                     const div8 = document.createElement('div');
                     l2 = document.createElement('a');
                     l2.setAttribute("href", `/users/${post.userid}`);
+                    l2.classList.add("hd");
                     l2.innerText = post.username;
                     div7.appendChild(div8);
                     div8.appendChild(l2);

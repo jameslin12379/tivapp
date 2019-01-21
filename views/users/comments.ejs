@@ -19,10 +19,10 @@
                                                         <!--<p><strong><a class="brown" href="/topics/<%= results[0][0].id %>"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a></strong></p>-->
                                                         <!--<p class="pb-1"><strong><a class="brown" href="/topics/<%= results[0][0].id %>/followers"><span id="followerscount"><%= results[3][0].followerscount %></span> Followers</a></strong></p>-->
 
-                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></strong></p>
-                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></strong></p>
-                                                        <p><strong><a class="brown" href="/users/<%= results[0][0].id %>/comments"><span id="commentscount"><%= results[4][0].commentscount %></span> Comments</a></strong></p>
-                                                        <p class="pb-1"><strong><a class="brown" href="/users/<%= results[0][0].id %>/likes"><%= results[5][0].likescount %> Likes</a></strong></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/comments"><span id="commentscount"><%= results[4][0].commentscount %></span> Comments</a></p>
+                                                        <p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[5][0].likescount %> Likes</a></p>
                                                     </div>
                                                     <p>Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
                                                     <p><%= results[0][0].description %></p>

@@ -225,6 +225,10 @@
     margin-top: 15px;
 }
 
+.mr-15 {
+    margin-right: 15px;
+}
+
 .red {
     color: red;
 }
@@ -386,7 +390,6 @@
 
     #item-other-paddingnone {
         display: flex;
-        justify-content: space-between;
     }
 
 
@@ -606,4 +609,10 @@
 
 a {
     color: #8585bd!important;
+}
+
+.hd {
+    font-weight: 700;
+    color: #2e2545!important;
+    line-height: 1.5em;
 }

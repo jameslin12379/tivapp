@@ -197,3 +197,64 @@
 <!--</div>-->
 <!--</div>-->
 <!--</div>
+
+
+           <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
+<div class="et_pb_blurb_content">
+<!--<div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><img src="<%= results[0][0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top" /></span></div>-->
+<div class="et_pb_blurb_container">
+<% if (alert.length > 0) { %>
+<div class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 colorgray">
+<%= alert %>
+</div>
+<% } %>
+<h4 class="et_pb_module_header">
+<% if (results[0][0].posttype === 1) { %>
+<a href="/posts/<%= results[0][0].id %>"><%= results[0][0].name %></a>
+<% } else { %>
+<a href="/posts/<%= results[0][0].id %>">/posts/<%= results[0][0].id %></a>
+<% } %>
+</h4>
+<div class="et_pb_blurb_description">
+<% if (results[0][0].posttype === 1) { %>
+<p><%= results[0][0].description %></p>
+<% } else if (results[0][0].posttype === 2) { %>
+<img src="<%= results[0][0].imageurl %>">
+<% } else { %>
+<video controls controlsList="nodownload" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+<source src="<%= results[0][0].videourl %>" type="video/mp4">
+</video>
+<% } %>
+<p class="pb-1"><strong><%= moment(results[0][0].datecreated).format('LLL') %></strong></p>
+<div id="item-other-paddingnone">
+<p><strong><a class="brown" href="/users/<%= results[0][0].userid %>"><%= results[0][0].username %></a></strong></p>
+<p><strong><a class="brown" href="/topics/<%= results[0][0].topicid %>"><%= results[0][0].topicname %></a></strong></p>
+<p><strong><span class="brown"><span id="commentscount"><%= results[2][0].commentscount %></span> Comments</span></strong></p>
+<p><strong><span class="brown"><span id="likescount"><%= results[3][0].likescount %></span> Likes</span></strong></p>
+<% if (req.isAuthenticated()) { %>
+<p><strong><button id="likeunlike" class="brown fs-100p bd-none fwbold">
+<% if (result[0].status === 0) { %>
+Like
+<% } else { %>
+Liked
+<% } %>
+</button></strong></p>
+<% } %>
+<% if (req.user === undefined) { %>
+<% } else if (req.user.id !== results[0][0].userid) { %>
+<% } else { %>
+<% if (results[0][0].posttype === 1) { %>
+<p class="pb-1"><strong><a class="brown" href="/posts/<%= results[0][0].id %>/edit">Edit</a></strong></p>
+<% } %>
+<form action="/posts/<%= results[0][0].id %>?_method=DELETE" method="post">
+<button type="submit" class="brown fs-100p bd-none fwbold">Delete</button>
+</form>
+<% } %>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">
+<a class="et_pb_button et_pb_custom_button_icon et_pb_button_2 et_animated et_hover_enabled et_pb_bg_layout_light" href="#" data-icon="&#x45;">Full Profile</a>
+</div>
