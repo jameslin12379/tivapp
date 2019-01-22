@@ -14,12 +14,12 @@
                                             <div class="et_pb_main_blurb_image"><a href="/users/<%= results[0].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
 
                                             <div class="et_pb_blurb_container">
-                                                <h4 class="et_pb_module_header">
-                                                    <a class="brown" href="/users/<%= results[0].userid %>"><%= results[0].username %></a>
-                                                </h4>
+                                                <!--<h4 class="et_pb_module_header">-->
+                                                    <a class="hd" href="/users/<%= results[0].userid %>"><%= results[0].username %></a>
+                                                <!--</h4>-->
                                                 <div class="et_pb_blurb_description">
                                                     <a class="brown" href="/comments/<%= results[0].id %>"><%= results[0].description %></a>
-                                                    <p><strong><%= moment(results[0].datecreated).format('LLL') %></strong></p>
+                                                    <p><%= moment(results[0].datecreated).format('LLL') %></p>
                                                     <% if (req.user === undefined) { %>
                                                     <% } else if (req.user.id !== results[0].userid) { %>
                                                     <% } else { %>
