@@ -23,14 +23,24 @@
                                                     <div id="item-other-wide">
                                                         <p><a href="/users/<%= results[0][0].id %>"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/followers"><%= results[4][0].followerscount %> Followers</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/followers"><span id="followerscount"><%= results[4][0].followerscount %></span> Followers</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/topics"><%= results[5][0].topicscount %> Topics</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/comments"><%= results[6][0].commentscount %> Comments</a></p>
                                                         <p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></p>
                                                     </div>
                                                     <p>Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
                                                     <p><%= results[0][0].description %></p>
-
+                                                    <% if (req.isAuthenticated() && req.user.id !== results[0][0].id) { %>
+                                                    <div class="et_pb_button_module_wrapper et_pb_button_0_wrapper et_pb_button_alignment_ et_pb_module textaligncenter">
+                                                        <button id="followunfollow" class="et_pb_button et_pb_custom_button_icon et_pb_button_0 et_animated et_hover_enabled et_pb_bg_layout_light pdlr-1 fs-12">
+                                                            <% if (result[0].status === 0) { %>
+                                                            Follow
+                                                            <% } else { %>
+                                                            Unfollow
+                                                            <% } %>
+                                                        </button>
+                                                    </div>
+                                                    <% } %>
                                                     <% if (req.user === undefined) { %>
                                                     <% } else if (req.user.id !== results[0][0].id) { %>
                                                     <% } else { %>
@@ -104,7 +114,9 @@
     </div>
 
     <script src="/javascripts/userloadmoreposts.js"></script>
-
+    <% if (req.isAuthenticated()) { %>
+    <script src="/javascripts/userfollowunfollow.js"></script>
+    <% } %>
 
     <% include ../partials/footer %>
 

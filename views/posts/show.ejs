@@ -46,6 +46,7 @@
                                                     <div id="item-other-paddingnone" class="mt-15">
                                                         <p class="mr-15"><span class="brown"><span id="commentscount"><%= results[2][0].commentscount %></span> Comments</span></p>
                                                         <p class="mr-15"><span class="brown"><span id="likescount"><%= results[3][0].likescount %></span> Likes</span></p>
+                                                        <p class="mr-15"><span class="brown"><%= results[0][0].views %> Views</span></p>
                                                         <% if (req.isAuthenticated()) { %>
                                                         <p class="mr-15"><button id="likeunlike" class="brown fs-100p bd-none pd-0">
                                                                     <% if (result[0].status === 0) { %>

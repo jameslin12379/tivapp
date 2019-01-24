@@ -161,8 +161,10 @@ router.get('/', function(req, res, next) {
                 alert: req.flash('alert')
             });
         }
-        connection.query('SELECT t.id, t.name, t.imageurl FROM topicfollowing as tf inner join topic as t ' +
-            'on tf.followed = t.id where tf.following = ? ORDER BY tf.datecreated DESC', [req.user.id],
+        connection.query('SELECT u.id, u.username, ' +
+            'u.imageurl from userfollowing as uf inner join user as u on uf.followed = u.id where uf.following = ?' +
+            ' ORDER BY uf.datecreated DESC;SELECT t.id, t.name, t.imageurl FROM topicfollowing as tf inner join topic ' +
+            'as t on tf.followed = t.id where tf.following = ? ORDER BY tf.datecreated DESC;', [req.user.id, req.user.id],
             function (error, results, fields) {
                 if (error) {
                     throw error;
@@ -258,13 +260,30 @@ router.get('/users/:id', isResource, function(req, res){
         if (error) {
             throw error;
         }
-        res.render('users/show', {
-            req: req,
-            results: results,
-            title: 'Profile',
-            moment: moment,
-            alert: req.flash('alert')
-        });
+            if (req.isAuthenticated() && req.user.id !== req.params.id) {
+                connection.query('SELECT count(*) as status FROM userfollowing WHERE following = ? and followed = ?;', [req.user.id, req.params.id],
+                    function (error, result, fields) {
+                        if (error) {
+                            throw error;
+                        }
+                        res.render('users/show', {
+                            req: req,
+                            results: results,
+                            title: 'Profile',
+                            result: result,
+                            moment: moment,
+                            alert: req.flash('alert')
+                        });
+                    });
+            } else {
+                res.render('users/show', {
+                    req: req,
+                    results: results,
+                    title: 'Profile',
+                    moment: moment,
+                    alert: req.flash('alert')
+                });
+            }
     });
 });
 
@@ -300,7 +319,7 @@ router.get('/users/:id/following', isResource, function(req, res){
             res.render('users/following', {
                 req: req,
                 results: results,
-                title: 'Profile',
+                title: 'User following',
                 moment: moment,
                 alert: req.flash('alert')
             });
@@ -338,7 +357,7 @@ router.get('/users/:id/followers', isResource, function(req, res){
             res.render('users/followers', {
                 req: req,
                 results: results,
-                title: 'Profile',
+                title: 'User followers',
                 moment: moment,
                 alert: req.flash('alert')
             });
@@ -377,7 +396,7 @@ router.get('/users/:id/topics', isResource, function(req, res){
             res.render('users/topics', {
                 req: req,
                 results: results,
-                title: 'User following',
+                title: 'User topics',
                 moment: moment,
                 alert: req.flash('alert')
             });
@@ -596,6 +615,32 @@ router.delete('/users/:id', isResource, isAuthenticated, isOwnResource, function
     });
 });
 
+/// USERFOLLOWING ROUTES ///
+// POST request for creating Userfollowing.
+router.post('/userfollowings', isAuthenticated, function(req, res) {
+    connection.query('INSERT INTO userfollowing (following, followed) VALUES (?, ?)', [req.user.id, req.body.userid], function (error, results, fields) {
+        // error will be an Error if one occurred during the query
+        // results will contain the results of the query
+        // fields will contain information about the returned results fields (if any)
+        if (error) {
+            throw error;
+        }
+        res.json({status: 'done'});
+    });
+});
+
+router.delete('/userfollowings', isAuthenticated, function(req, res) {
+    connection.query('DELETE FROM userfollowing WHERE following = ? and followed = ?', [req.user.id, req.body.userid], function (error, results, fields) {
+        // error will be an Error if one occurred during the query
+        // results will contain the results of the query
+        // fields will contain information about the returned results fields (if any)
+        if (error) {
+            throw error;
+        }
+        res.json({status: 'done'});
+    });
+});
+
 /// POST ROUTES ///
 // GET request for creating a Post. NOTE This must come before routes that display Post (uses id).
 // router.get('/posts/new', isAuthenticated, function(req, res){
@@ -671,7 +716,6 @@ router.post('/texts', isAuthenticated, [
                     });
                 }
             });
-
 
 router.post('/images', isAuthenticated, upload.single('file'), [
         body('topic', 'Empty topic').not().isEmpty()
@@ -856,46 +900,54 @@ router.post('/videos', isAuthenticated, upload.single('file'), [
 
 // GET request for one Post.
 router.get('/posts/:id', isResource, function(req, res){
-    connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.id = ? ORDER BY p.datecreated DESC LIMIT 10; SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on ' +
-        'c.userid = u.id WHERE c.postid = ? ORDER BY c.datecreated DESC LIMIT 10;SELECT count(*) as commentscount FROM comment WHERE postid = ?;SELECT count(*) as likescount FROM likes WHERE liked = ?;', [req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
+    connection.query('UPDATE post SET views = views + 1 WHERE id = ?', [req.params.id], function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
         // fields will contain information about the returned results fields (if any)
         if (error) {
             throw error;
         }
-        // console.log(results);
-        // res.render('posts/show', {
-        //     req: req,
-        //     results: results,
-        //     title: 'Post',
-        //     moment: moment,
-        //     alert: req.flash('alert')
-        // });
-        if (req.isAuthenticated()) {
-            connection.query('SELECT count(*) as status FROM likes WHERE likes = ? and liked = ?;', [req.user.id, req.params.id],
-                function (error, result, fields) {
-                    if (error) {
-                        throw error;
-                    }
-                    res.render('posts/show', {
-                        req: req,
-                        results: results,
-                        title: 'Post',
-                        result: result,
-                        moment: moment,
-                        alert: req.flash('alert')
+        connection.query('SELECT p.id, p.name, p.description, p.imageurl, p.videourl, p.datecreated, p.userid, p.topicid, p.posttype, p.views, u.username, u.imageurl as userimageurl, t.name as topicname from post as p inner join user as u on p.userid = u.id inner join topic as t on p.topicid = t.id where p.id = ? ORDER BY p.datecreated DESC LIMIT 10; SELECT c.id, c.description, c.datecreated, c.userid, u.username, u.imageurl FROM comment as c inner join user as u on ' +
+            'c.userid = u.id WHERE c.postid = ? ORDER BY c.datecreated DESC LIMIT 10;SELECT count(*) as commentscount FROM comment WHERE postid = ?;SELECT count(*) as likescount FROM likes WHERE liked = ?;', [req.params.id, req.params.id, req.params.id, req.params.id], function (error, results, fields) {
+            // error will be an Error if one occurred during the query
+            // results will contain the results of the query
+            // fields will contain information about the returned results fields (if any)
+            if (error) {
+                throw error;
+            }
+            // console.log(results);
+            // res.render('posts/show', {
+            //     req: req,
+            //     results: results,
+            //     title: 'Post',
+            //     moment: moment,
+            //     alert: req.flash('alert')
+            // });
+            if (req.isAuthenticated()) {
+                connection.query('SELECT count(*) as status FROM likes WHERE likes = ? and liked = ?;', [req.user.id, req.params.id],
+                    function (error, result, fields) {
+                        if (error) {
+                            throw error;
+                        }
+                        res.render('posts/show', {
+                            req: req,
+                            results: results,
+                            title: 'Post',
+                            result: result,
+                            moment: moment,
+                            alert: req.flash('alert')
+                        });
                     });
+            } else {
+                res.render('posts/show', {
+                    req: req,
+                    results: results,
+                    title: 'Post',
+                    moment: moment,
+                    alert: req.flash('alert')
                 });
-        } else {
-            res.render('posts/show', {
-                req: req,
-                results: results,
-                title: 'Post',
-                moment: moment,
-                alert: req.flash('alert')
-            });
-        }
+            }
+        });
     });
 });
 
