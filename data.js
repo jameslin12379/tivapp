@@ -139,6 +139,44 @@ function gettopicfollowings(){
 });
 }
 
+function getuserfollowings(){
+    let values = [];
+    /*for (let i = 1; i < 100001; i++) {
+        for (let j = 1; j < 71; j++) {
+                values.push([i,j]);
+        }
+    }*/
+        for (let i = 1; i < 101; i++){
+                for(let j = 101; j < 201; j++){
+                        values.push([i,j]);
+        }
+        }
+    connection.query('INSERT INTO userfollowing (following, followed) VALUES ?', [values], function(error, results, fields) {
+        if (error) throw error;
+        console.log('saved');
+        connection.end();
+});
+}
+
+function getuserfollowings2(){
+    let values = [];
+    /*for (let i = 1; i < 100001; i++) {
+        for (let j = 1; j < 71; j++) {
+                values.push([i,j]);
+        }
+    }*/
+        for (let i = 101; i < 201; i++){
+                for(let j = 1; j < 101; j++){
+                        values.push([i,j]);
+        }
+        }
+    connection.query('INSERT INTO userfollowing (following, followed) VALUES ?', [values], function(error, results, fields) {
+        if (error) throw error;
+        console.log('saved');
+        connection.end();
+});
+}
+
 // Generate likes (100000 posts * 100000 users = 10000000000 likes/generate 100 distinct likers for 100 posts thus 10000 rows)
 function getlikes(){
     let values = [];
@@ -204,7 +242,7 @@ function getmorecommentsforpost(num){
 }
 
 //getmorepostsforuser(81880)
-getmorecommentsforuser(14793);
+//getmorecommentsforuser(14793);
 //getmorecommentsforpost(100096)
 
 //getusers();
@@ -214,3 +252,5 @@ getmorecommentsforuser(14793);
 //getcomments();
 //gettopicfollowings();
 //getlikes();
+getuserfollowings();
+getuserfollowings2();

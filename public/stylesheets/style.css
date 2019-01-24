@@ -388,7 +388,6 @@
 
     #item-other-wide {
         display: flex;
-        padding: 0 15%;
         justify-content: space-between;
     }
 

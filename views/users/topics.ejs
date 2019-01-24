@@ -17,9 +17,9 @@
                                                 <div class="et_pb_blurb_description">
                                                     <div id="item-other-wide">
                                                         <p><a href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/following"><span id="followingcount"><%= results[3][0].followingcount %></span> Following</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/followers"><%= results[4][0].followerscount %> Followers</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/topics"><%= results[5][0].topicscount %> Topics</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/topics"><span id="topicscount"><%= results[5][0].topicscount %></span> Topics</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/comments"><%= results[6][0].commentscount %> Comments</a></p>
                                                         <p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></p>
                                                     </div>
@@ -40,10 +40,10 @@
                                         <% for(var i=0; i < results[1].length; i++) { %>
                                         <div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">
                                             <div class="et_pb_blurb_content">
-                                                <div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].id %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
+                                                <div class="et_pb_main_blurb_image"><a href="/topics/<%= results[1][i].id %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
                                                 <div class="et_pb_blurb_container">
                                                     <h4 class="et_pb_module_header">
-                                                        <a href="/users/<%= results[1][i].id %>"><%= results[1][i].username %></a>
+                                                        <a href="/topics/<%= results[1][i].id %>"><%= results[1][i].name %></a>
                                                     </h4>
                                                     <!--<div class="et_pb_blurb_description">-->
                                                     <!--</div>-->
@@ -62,7 +62,7 @@
         </article>
     </div>
 
-    <script src="/javascripts/userloadmorefollowing.js"></script>
+    <script src="/javascripts/userloadmoretopics.js"></script>
 
 
     <% include ../partials/footer %>

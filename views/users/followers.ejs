@@ -17,8 +17,8 @@
                                                 <div class="et_pb_blurb_description">
                                                     <div id="item-other-wide">
                                                         <p><a href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/following"><span id="followingcount"><%= results[3][0].followingcount %></span> Following</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/followers"><%= results[4][0].followerscount %> Followers</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/followers"><span id="followerscount"><%= results[4][0].followerscount %></span> Followers</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/topics"><%= results[5][0].topicscount %> Topics</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/comments"><%= results[6][0].commentscount %> Comments</a></p>
                                                         <p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></p>
@@ -62,7 +62,7 @@
         </article>
     </div>
 
-    <script src="/javascripts/userloadmorefollowing.js"></script>
+    <script src="/javascripts/userloadmorefollowers.js"></script>
 
 
     <% include ../partials/footer %>

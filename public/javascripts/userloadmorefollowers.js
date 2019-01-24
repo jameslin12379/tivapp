@@ -10,11 +10,11 @@ if (lastcharacter === '/'){
 url = url.substring(0, url.lastIndexOf('/'));
 let userid = url.substring(url.lastIndexOf('/')+1);
 let count = document.getElementsByClassName('container-item').length;
-let total = Number(document.getElementById('followingcount').innerText);
+let total = Number(document.getElementById('followerscount').innerText);
 let skip = count;
 let limit = 10;
 let loading = false;
-const API_URL = window.location.hostname.includes("dev") ? `https://www.tiv67.com.dev/api/users/${userid}/following` : `https://www.tiv67.com/api/users/${userid}/following`;
+const API_URL = window.location.hostname.includes("dev") ? `https://www.tiv67.com.dev/api/users/${userid}/followers` : `https://www.tiv67.com/api/users/${userid}/followers`;
 
 document.addEventListener('scroll', () => {
     const rect = loadMore.getBoundingClientRect();

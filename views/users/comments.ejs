@@ -16,13 +16,12 @@
                                                 <h4 class="et_pb_module_header"><%= results[0][0].username %></h4>
                                                 <div class="et_pb_blurb_description">
                                                     <div id="item-other-wide">
-                                                        <!--<p><strong><a class="brown" href="/topics/<%= results[0][0].id %>"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a></strong></p>-->
-                                                        <!--<p class="pb-1"><strong><a class="brown" href="/topics/<%= results[0][0].id %>/followers"><span id="followerscount"><%= results[3][0].followerscount %></span> Followers</a></strong></p>-->
-
                                                         <p><a href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></p>
                                                         <p><a href="/users/<%= results[0][0].id %>/following"><%= results[3][0].followingcount %> Following</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/comments"><span id="commentscount"><%= results[4][0].commentscount %></span> Comments</a></p>
-                                                        <p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[5][0].likescount %> Likes</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/followers"><%= results[4][0].followerscount %> Followers</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/topics"><%= results[5][0].topicscount %> Topics</a></p>
+                                                        <p><a href="/users/<%= results[0][0].id %>/comments"><span id="commentscount"><%= results[6][0].commentscount %></span> Comments</a></p>
+                                                        <p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></p>
                                                     </div>
                                                     <p>Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
                                                     <p><%= results[0][0].description %></p>
