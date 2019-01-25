@@ -619,3 +619,15 @@ a {
     color: #2e2545!important;
     line-height: 1.5em;
 }
+
+.float-left {
+    float: left;
+    padding-top: 15px;
+}
+
+@media (min-width: 981px) {
+    .float-left {
+        float: left;
+        padding-top: 20px;
+    }
+}
