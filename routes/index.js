@@ -1213,7 +1213,7 @@ router.delete('/comments/:id', isResource, isAuthenticated, isOwnResource, funct
 /// TOPIC ROUTES ///
 // GET request for list of all Topic items.
 router.get('/topics', function(req, res){
-    connection.query('SELECT * FROM `topic`', function (error, results, fields) {
+    connection.query('SELECT * FROM topic ORDER BY name LIMIT 10', function (error, results, fields) {
         // error will be an Error if one occurred during the query
         // results will contain the results of the query
         // fields will contain information about the returned results fields (if any)
@@ -1226,6 +1226,18 @@ router.get('/topics', function(req, res){
             title: 'Explore',
             alert: req.flash('alert')
         });
+    });
+});
+
+router.get('/api/topics', function(req, res){
+    connection.query('SELECT * FROM topic ORDER BY name LIMIT 10 OFFSET ?;', [Number(req.query.skip)], function (error, results, fields) {
+        // error will be an Error if one occurred during the query
+        // results will contain the results of the query
+        // fields will contain information about the returned results fields (if any)
+        if (error) {
+            throw error;
+        }
+        res.status(200).json({ results: results });
     });
 });
 
