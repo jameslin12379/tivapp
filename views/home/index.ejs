@@ -1,39 +1,13 @@
 <% include ../partials/header %>
 
-<div id="et-main-area">
-    <div id="main-content">
-        <article id="post-209034" class="post-209034 page type-page status-publish hentry">
-            <div class="entry-content">
-                <div id="et-boc" class="et-boc">
-                    <div class="et_builder_inner_content et_pb_gutters3">
-                        <div class="et_pb_section et_pb_section_0 et_animated et_pb_with_background et_section_regular">
-                            <div class="et_pb_row et_pb_row_0">
-                                <div class="et_pb_column et_pb_column_1_2 et_pb_column_0    et_pb_css_mix_blend_mode_passthrough">
-                                    <div class="et_pb_module et_pb_text et_pb_text_0 et_pb_bg_layout_dark  et_pb_text_align_left textaligncenter mb-none">
-                                        <div class="et_pb_text_inner">
-                                            <h1 class="fs-80 white">TIV</h1>
-                                        </div>
-                                    </div>
-                                    <div class="et_pb_module et_pb_text et_pb_text_1 et_pb_bg_layout_light  et_pb_text_align_left textaligncenter">
-                                        <div class="et_pb_text_inner">
-
-                                            <p class="fs-20"><% if (!req.isAuthenticated()) { %>Upload something.<% } else { %>Follow Topics.<% } %></p>
-                                        </div>
-                                    </div>
-                                    <div class="et_pb_button_module_wrapper et_pb_button_0_wrapper et_pb_button_alignment_ et_pb_module textaligncenter">
-                                        <a id="explore" class="et_pb_button et_pb_custom_button_icon et_pb_button_0 et_animated et_hover_enabled et_pb_bg_layout_light pdlr-1 fs-12" href="/topics" data-icon="&#x45;">Explore</a>
-                                    </div>
-                                </div>
-                                <!--<div class="et_pb_column et_pb_column_1_2 et_pb_column_1    et_pb_css_mix_blend_mode_passthrough">-->
-                                    <!--<div class="et_pb_module et_pb_image et_pb_image_0 et_animated et-waypoint et_always_center_on_mobile">-->
-                                        <!--<span class="et_pb_image_wrap"><img src="https://www.elegantthemes.com/layouts/wp-content/uploads/2017/12/coding-isometric-11.png" alt="" /></span>-->
-                                    <!--</div>-->
-                                </div>
-                            </div>
-                        </div>    </div>
-                </div> </div>
-        </article>
+<div class="jumbotron">
+    <div class="container pd-zero">
+    <h1 class="display-4">TIV</h1>
+    <p class="lead"><% if (!req.isAuthenticated()) { %>Upload something.<% } else { %>Follow Topics.<% } %></p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="/topics" role="button">Explore</a>
     </div>
+</div>
 
 <% include ../partials/footer %>
 
