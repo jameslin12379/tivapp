@@ -7,7 +7,7 @@
         <%= alert %>
     </div>
     <% } %>
-    <div>
+    <div class="mb-30">
         <div class="flex jc-center mb-15"><img src="<%= results[0][0].imageurl %>" alt="" class="width-100 height-100 border-radius" /></div>
         <h4 class="text-center mb-15"><%= results[0][0].username %></h4>
         <div class="other mb-15">
@@ -19,11 +19,11 @@
             <div class="text-center"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></div>
         </div>
         <p class="text-center">Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
-        <p class="pd-lr-20p m-15"><%= results[0][0].description %></p>
+        <p class="pd-lr-20p text-center m-15"><%= results[0][0].description %></p>
     </div>
     <div id="container">
         <% for(var i=0; i < results[1].length; i++) { %>
-        <div class="flex mb-30">
+        <div class="flex mb-30 container-item">
             <div class="mr-15">
                 <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
             </div>

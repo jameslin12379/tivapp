@@ -1,93 +1,122 @@
 <% include ../partials/header %>
 
+<div class="container pd-tb-50">
+    <h3 class="text-center mb-15">Edit profile</h3>
+    <form action="/users/<%= results[0].id %>?_method=PUT" method="post" enctype="multipart/form-data" class="form">
+        <% if (errors.length > 0) { %>
+        <% for(var i = 0; i < errors.length; i++) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= errors[i].msg %>
+        </div>
+        <% } %>
+        <% } %>
+        <div class="form-group">
+            <input class="form-control" type="email" placeholder="Email address" name="email" value="<%if (inputs.length > 0) { %><%= inputs[0].email %><% }else{ %><%= results[0].email %><% } %>" required autofocus>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Username" name="username" value="<%if (inputs.length > 0) { %><%= inputs[0].username %><% }else{ %><%= results[0].username %><% } %>" required>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" placeholder="Description" name="description" rows="5" required><%if (inputs.length > 0) { %><%= inputs[0].description %><% }else{ %><%= results[0].description %><% } %></textarea>
+        </div>
+        <div class="form-group">
+            <input type="file" class="form-control-file" name="file" accept="image/*" required>
+            <input type="hidden" name="imageurl" value="<%= results[0].imageurl %>">
+        </div>
+        <div class="flex jc-flexend">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
 
-
-
-
-
-<div id="et-main-area" class="pt-100">
-    <div id="main-content">
-        <article id="post-209034" class="post-209034 page type-page status-publish hentry">
-            <div class="entry-content">
-                <div id="et-boc" class="et-boc">
-                    <div class="et_builder_inner_content et_pb_gutters3">
-                        <div class="et_pb_section et_pb_section_1 et_section_specialty">
-                            <div class="et_pb_row">
-
-                                <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
-                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
-                                        <div class="et_pb_blurb_content">
-
-                                            <form class="contact100-form validate-form" action="/users/<%= results[0].id %>?_method=PUT" method="post" enctype="multipart/form-data">
-                                            <span class="contact100-form-title textcenter">
-					                        Edit profile
-				                            </span>
-
-                                                <% if (errors.length > 0) { %>
-                                                <% for(var i = 0; i < errors.length; i++) { %>
-                                                <div class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 red">
-                                                    <%= errors[i].msg %>
-                                                </div>
-                                                <% } %>
-                                                <% } %>
-
-                                                <div class="wrap-input100 validate-input" data-validate="Name is required">
-                                                    <input class="input100" type="email" placeholder="Email address" name="email" value="<%if (inputs.length > 0) { %><%= inputs[0].email %><% }else{ %><%= results[0].email %><% } %>" required autofocus>
-                                                    <span class="focus-input100-1"></span>
-                                                    <span class="focus-input100-2"></span>
-                                                </div>
-
-                                                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                                                    <input class="input100" type="text" placeholder="Username" name="username" value="<%if (inputs.length > 0) { %><%= inputs[0].username %><% }else{ %><%= results[0].username %><% } %>" required>
-                                                    <span class="focus-input100-1"></span>
-                                                    <span class="focus-input100-2"></span>
-                                                </div>
-
-                                                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                                                    <textarea class="input100" placeholder="Description" name="description" required><%if (inputs.length > 0) { %><%= inputs[0].description %><% }else{ %><%= results[0].description %><% } %></textarea>
-
-                                                    <span class="focus-input100-1"></span>
-                                                    <span class="focus-input100-2"></span>
-                                                </div>
-
-                                                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                                                    <input class="input100 pd-top-20" type="file" name="file" accept="image/*" required>
-                                                    <input class="input100" type="hidden" name="imageurl" value="<%= results[0].imageurl %>">
-                                                    <span class="focus-input100-1"></span>
-                                                    <span class="focus-input100-2"></span>
-                                                </div>
-
-                                                <div class="flex justify-flex-end">
-                                                    <button id="explore" class="et_pb_button et_pb_custom_button_icon et_pb_button_0 et_animated et_hover_enabled et_pb_bg_layout_light pdlr-1 fs-12 floatr" data-icon="&#x45;" type="submit">Submit</button>
-                                                </div>
-
-                                                <!--<div class="contact100-form-checkbox">-->
-                                                <!--<input class="input-checkbox100" id="ckb1" type="checkbox" name="copy-mail">-->
-                                                <!--<label class="label-checkbox100" for="ckb1">-->
-                                                <!--Send copy to my-email-->
-                                                <!--</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div class="container-contact100-form-btn">-->
-                                                <!--<button class="contact100-form-btn">-->
-                                                <!--Send Email-->
-                                                <!--</button>-->
-                                                <!--</div>-->
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-                            </div>
-                        </div> </div>
-                </div> </div>
-        </article>
-    </div>
 
 
     <% include ../partials/footer %>
+
+
+
+
+<!--<div id="et-main-area" class="pt-100">-->
+    <!--<div id="main-content">-->
+        <!--<article id="post-209034" class="post-209034 page type-page status-publish hentry">-->
+            <!--<div class="entry-content">-->
+                <!--<div id="et-boc" class="et-boc">-->
+                    <!--<div class="et_builder_inner_content et_pb_gutters3">-->
+                        <!--<div class="et_pb_section et_pb_section_1 et_section_specialty">-->
+                            <!--<div class="et_pb_row">-->
+
+                                <!--<div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">-->
+                                    <!--<div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">-->
+                                        <!--<div class="et_pb_blurb_content">-->
+
+                                            <!--<form class="contact100-form validate-form" action="/users/<%= results[0].id %>?_method=PUT" method="post" enctype="multipart/form-data">-->
+                                            <!--<span class="contact100-form-title textcenter">-->
+					                        <!--Edit profile-->
+				                            <!--</span>-->
+
+                                                <!--<% if (errors.length > 0) { %>-->
+                                                <!--<% for(var i = 0; i < errors.length; i++) { %>-->
+                                                <!--<div class="et_pb_newsletter_result et_pb_newsletter_error show text-center mb-1 fs-18 red">-->
+                                                    <!--<%= errors[i].msg %>-->
+                                                <!--</div>-->
+                                                <!--<% } %>-->
+                                                <!--<% } %>-->
+
+                                                <!--<div class="wrap-input100 validate-input" data-validate="Name is required">-->
+                                                    <!--<input class="input100" type="email" placeholder="Email address" name="email" value="<%if (inputs.length > 0) { %><%= inputs[0].email %><% }else{ %><%= results[0].email %><% } %>" required autofocus>-->
+                                                    <!--<span class="focus-input100-1"></span>-->
+                                                    <!--<span class="focus-input100-2"></span>-->
+                                                <!--</div>-->
+
+                                                <!--<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">-->
+                                                    <!--<input class="input100" type="text" placeholder="Username" name="username" value="<%if (inputs.length > 0) { %><%= inputs[0].username %><% }else{ %><%= results[0].username %><% } %>" required>-->
+                                                    <!--<span class="focus-input100-1"></span>-->
+                                                    <!--<span class="focus-input100-2"></span>-->
+                                                <!--</div>-->
+
+                                                <!--<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">-->
+                                                    <!--<textarea class="input100" placeholder="Description" name="description" required><%if (inputs.length > 0) { %><%= inputs[0].description %><% }else{ %><%= results[0].description %><% } %></textarea>-->
+
+                                                    <!--<span class="focus-input100-1"></span>-->
+                                                    <!--<span class="focus-input100-2"></span>-->
+                                                <!--</div>-->
+
+                                                <!--<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">-->
+                                                    <!--<input class="input100 pd-top-20" type="file" name="file" accept="image/*" required>-->
+                                                    <!--<input class="input100" type="hidden" name="imageurl" value="<%= results[0].imageurl %>">-->
+                                                    <!--<span class="focus-input100-1"></span>-->
+                                                    <!--<span class="focus-input100-2"></span>-->
+                                                <!--</div>-->
+
+                                                <!--<div class="flex justify-flex-end">-->
+                                                    <!--<button id="explore" class="et_pb_button et_pb_custom_button_icon et_pb_button_0 et_animated et_hover_enabled et_pb_bg_layout_light pdlr-1 fs-12 floatr" data-icon="&#x45;" type="submit">Submit</button>-->
+                                                <!--</div>-->
+
+                                                <!--&lt;!&ndash;<div class="contact100-form-checkbox">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<input class="input-checkbox100" id="ckb1" type="checkbox" name="copy-mail">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<label class="label-checkbox100" for="ckb1">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;Send copy to my-email&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                                <!--&lt;!&ndash;<div class="container-contact100-form-btn">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<button class="contact100-form-btn">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;Send Email&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--</form>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+
+
+                            <!--</div>-->
+                        <!--</div> </div>-->
+                <!--</div> </div>-->
+        <!--</article>-->
+    <!--</div>-->
+
 
 

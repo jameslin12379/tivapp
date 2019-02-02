@@ -1,53 +1,75 @@
 <% include ../partials/header %>
 
-<div id="et-main-area" class="pt-100">
-    <div id="main-content">
-        <article id="post-209034" class="post-209034 page type-page status-publish hentry">
-            <div class="entry-content">
-                <div id="et-boc" class="et-boc">
-                    <div class="et_builder_inner_content et_pb_gutters3">
-                        <div class="et_pb_section et_pb_section_1 et_section_specialty">
-                            <div class="et_pb_row">
-                                <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
-                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
-                                        <div class="et_pb_blurb_content">
-                                            <div class="et_pb_main_blurb_image"><a href="/users/<%= results[0].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
+<div class="container pd-tb-50">
+    <div class="flex mb-30 container-item">
+        <div class="mr-15">
+            <a href="/users/<%= results[0].userid %>"><img src="<%= results[0].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
+        </div>
+        <div>
+            <div><a href="/users/<%= results[0].userid %>"><%= results[0].username %></a></div>
+            <div><a href="/comments/<%= results[0].id %>"><%= results[0].description %></a></div>
+            <div class="mb-15"><%= moment(results[0].datecreated).format('LLL') %></div>
+            <% if (req.user === undefined) { %>
+            <% } else if (req.user.id !== results[0].userid) { %>
+            <% } else { %>
+            <form action="/comments/<%= results[0].id %>?_method=DELETE" method="post">
+                <button type="submit" class="btn btn-outline-primary va">Delete</button>
+            </form>
+            <% } %>
+        </div>
 
-                                            <div class="et_pb_blurb_container">
-                                                <!--<h4 class="et_pb_module_header">-->
-                                                    <a class="hd" href="/users/<%= results[0].userid %>"><%= results[0].username %></a>
-                                                <!--</h4>-->
-                                                <div class="et_pb_blurb_description">
-                                                    <a class="brown" href="/comments/<%= results[0].id %>"><%= results[0].description %></a>
-                                                    <p><%= moment(results[0].datecreated).format('LLL') %></p>
-                                                    <% if (req.user === undefined) { %>
-                                                    <% } else if (req.user.id !== results[0].userid) { %>
-                                                    <% } else { %>
-                                                    <form action="/comments/<%= results[0].id %>?_method=DELETE" method="post">
-                                                        <button type="submit" class="brown fs-100p bd-none pd-none">Delete</button>
-                                                    </form>
-                                                    <% } %>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">-->
-                                    <!--<a class="et_pb_button et_pb_custom_button_icon et_pb_button_2 et_animated et_hover_enabled et_pb_bg_layout_light" href="#" data-icon="&#x45;">Full Profile</a>-->
-                                    <!--</div>-->
-                                </div>
-
-
-
-                            </div>
-                        </div> </div>
-                </div> </div>
-        </article>
     </div>
+
+</div>
+
 
 
 
     <% include ../partials/footer %>
 
 
+<!--<div id="et-main-area" class="pt-100">-->
+    <!--<div id="main-content">-->
+        <!--<article id="post-209034" class="post-209034 page type-page status-publish hentry">-->
+            <!--<div class="entry-content">-->
+                <!--<div id="et-boc" class="et-boc">-->
+                    <!--<div class="et_builder_inner_content et_pb_gutters3">-->
+                        <!--<div class="et_pb_section et_pb_section_1 et_section_specialty">-->
+                            <!--<div class="et_pb_row">-->
+                                <!--<div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">-->
+                                    <!--<div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">-->
+                                        <!--<div class="et_pb_blurb_content">-->
+                                            <!--<div class="et_pb_main_blurb_image"><a href="/users/<%= results[0].userid %>"><span class="et_pb_image_wrap"><img src="<%= results[0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>-->
+
+                                            <!--<div class="et_pb_blurb_container">-->
+                                                <!--&lt;!&ndash;<h4 class="et_pb_module_header">&ndash;&gt;-->
+                                                <!--<a class="hd" href="/users/<%= results[0].userid %>"><%= results[0].username %></a>-->
+                                                <!--&lt;!&ndash;</h4>&ndash;&gt;-->
+                                                <!--<div class="et_pb_blurb_description">-->
+                                                    <!--<a class="brown" href="/comments/<%= results[0].id %>"><%= results[0].description %></a>-->
+                                                    <!--<p><%= moment(results[0].datecreated).format('LLL') %></p>-->
+                                                    <!--<% if (req.user === undefined) { %>-->
+                                                    <!--<% } else if (req.user.id !== results[0].userid) { %>-->
+                                                    <!--<% } else { %>-->
+                                                    <!--<form action="/comments/<%= results[0].id %>?_method=DELETE" method="post">-->
+                                                        <!--<button type="submit" class="brown fs-100p bd-none pd-none">Delete</button>-->
+                                                    <!--</form>-->
+                                                    <!--<% } %>-->
+
+
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<a class="et_pb_button et_pb_custom_button_icon et_pb_button_2 et_animated et_hover_enabled et_pb_bg_layout_light" href="#" data-icon="&#x45;">Full Profile</a>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--</div>-->
+
+
+
+                            <!--</div>-->
+                        <!--</div> </div>-->
+                <!--</div> </div>-->
+        <!--</article>-->
+    <!--</div>-->

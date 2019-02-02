@@ -1,14 +1,14 @@
 <% include ../partials/header %>
 
 <div class="container pd-tb-50">
-    <div>
+    <div class="mb-30">
         <div class="flex jc-center mb-15"><img src="<%= results[0][0].imageurl %>" alt="" class="width-100 height-100 border-radius" /></div>
         <h4 class="text-center mb-15"><%= results[0][0].name %></h4>
         <div class="flex jc-center mb-15">
             <a href="/topics/<%= results[0][0].id %>" class="mr-15"><span id="postscount"><%= results[2][0].postscount %></span> Posts</a>
             <a href="/topics/<%= results[0][0].id %>/followers"><span id="followerscount"><%= results[3][0].followerscount %></span> Followers</a>
         </div>
-        <p class="pd-lr-20p m-15"><%= results[0][0].description %></p>
+        <p class="pd-lr-20p text-center m-15"><%= results[0][0].description %></p>
     </div>
     <div id="container">
         <% for(var i=0; i < results[1].length; i++) { %>

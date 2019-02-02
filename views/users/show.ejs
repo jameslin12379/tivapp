@@ -6,7 +6,7 @@
             <%= alert %>
         </div>
         <% } %>
-        <div>
+        <div class="mb-30">
             <div class="flex jc-center mb-15"><img src="<%= results[0][0].imageurl %>" alt="" class="width-100 height-100 border-radius" /></div>
             <h4 class="text-center mb-15"><%= results[0][0].username %></h4>
             <div class="other mb-15">
@@ -18,7 +18,7 @@
                 <div class="text-center"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></div>
             </div>
             <p class="text-center">Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
-            <p class="pd-lr-20p m-15"><%= results[0][0].description %></p>
+            <p class="pd-lr-20p text-center m-15"><%= results[0][0].description %></p>
             <% if (req.isAuthenticated() && req.user.id !== results[0][0].id) { %>
             <div class="flex jc-center">
                 <button id="followunfollow" type="button" class="btn btn-outline-primary">
@@ -55,10 +55,10 @@
                 <% if (results[1][i].posttype === 1) { %>
                 <p class="mb-15"><%= results[1][i].description %></p>
                 <% } else if (results[1][i].posttype === 2) { %>
-                <div class="mb-15 flex jc-center"><img src="<%= results[1][i].imageurl %>" class="width-400 height-400" /></div>
+                <div class="mb-15 flex jc-center"><img src="<%= results[1][i].imageurl %>" class="image" /></div>
                 <% } else { %>
                 <div class="mb-15 flex jc-center">
-                    <video controls controlsList="nodownload" webkitallowfullscreen mozallowfullscreen allowfullscreen class="width-50p height-200">
+                    <video controls controlsList="nodownload" webkitallowfullscreen mozallowfullscreen allowfullscreen class="video">
                         <source src="<%= results[1][i].videourl %>" type="video/mp4">
                     </video>
                 </div>

@@ -52,8 +52,7 @@ document.addEventListener('scroll', () => {
                         div3.classList.add("jc-center");
                         const img = document.createElement('img');
                         img.setAttribute("src", post.imageurl);
-                        img.classList.add("width-400");
-                        img.classList.add("height-400");
+                        img.classList.add("image");
                         div3.appendChild(img);
                         div.appendChild(div3);
                     } else {
@@ -65,8 +64,7 @@ document.addEventListener('scroll', () => {
                         const source = document.createElement('source');
                         video.setAttribute("controls", true);
                         video.setAttribute("allowfullscreen", true);
-                        video.classList.add("width-50p");
-                        video.classList.add("height-200");
+                        video.classList.add("video");
                         source.setAttribute("src", post.videourl);
                         source.setAttribute("type", "video/mp4");
                         video.appendChild(source);
