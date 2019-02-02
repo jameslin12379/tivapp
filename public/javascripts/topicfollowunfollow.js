@@ -9,7 +9,7 @@ const URL = window.location.origin + '/topicfollowings';
 const followerscount = document.getElementById('followerscount');
 const button = document.getElementById('followunfollow');
 button.addEventListener('click', function(event){
-    if (button.innerText === 'FOLLOW') {
+    if (button.innerText === 'Follow') {
         followTopic();
     } else {
         unfollowTopic();
@@ -26,7 +26,7 @@ function followTopic(){
         body: JSON.stringify({topicid: topicid})
     }).then(response => response.json())
         .then(result => {
-            button.innerText = 'UNFOLLOW';
+            button.innerText = 'Unfollow';
             followerscount.innerText = (Number(followerscount.innerText) + 1) + '';
         });
 }
@@ -41,7 +41,7 @@ function unfollowTopic(){
         body: JSON.stringify({topicid: topicid})
     }).then(response => response.json())
         .then(result => {
-            button.innerText = 'FOLLOW';
+            button.innerText = 'Follow';
             followerscount.innerText = (Number(followerscount.innerText) - 1) + '';
 
         });

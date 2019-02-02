@@ -85,57 +85,37 @@ document.addEventListener('scroll', () => {
                 result = result.results;
                 result.forEach(comment => {
                     const div = document.createElement('div');
-                    div.classList.add("et_pb_module");
-                    div.classList.add("et_pb_blurb");
-                    div.classList.add("et_pb_blurb_0");
-                    // div.classList.add("et_animated");
-                    div.classList.add("et_pb_bg_layout_light");
-                    div.classList.add("et_pb_text_align_left");
-                    div.classList.add("et_pb_blurb_position_left");
-                    div.classList.add("container-item");
+                    div.classList.add("flex");
+                    div.classList.add("mb-30");
                     const div2 = document.createElement('div');
-                    div2.classList.add("et_pb_blurb_content");
+                    div2.classList.add("mr-15");
                     div.appendChild(div2);
-                    const div3 = document.createElement('div');
-                    div3.classList.add("et_pb_main_blurb_image");
-                    div3.classList.add("pl-15");
-                    div2.appendChild(div3);
-                    const link = document.createElement('a');
-                    link.setAttribute("href", `/users/${comment.userid}`);
-                    const span = document.createElement('span');
-                    span.classList.add("et_pb_image_wrap");
-                    const img = document.createElement('img');
-                    img.setAttribute("src", comment.imageurl);
-                    // img.classList.add("et-waypoint");
-                    img.classList.add("et_pb_animation_top");
-                    img.classList.add("item-image");
-                    div3.appendChild(link);
-                    link.appendChild(span);
-                    span.appendChild(img);
-                    const div4 = document.createElement('div');
-                    div4.classList.add("et_pb_blurb_container");
-                    div2.appendChild(div4);
-                    // const h4 = document.createElement('h4');
-                    // h4.classList.add("et_pb_module_header");
-                    // div4.appendChild(h4);
-                    const link2 = document.createElement('a');
-                    link2.classList.add("hd");
-                    link2.setAttribute("href", `/users/${comment.userid}`);
-                    link2.innerText = comment.username;
-                    div4.appendChild(link2);
-                    const div5 = document.createElement('div');
-                    div5.classList.add("et_pb_blurb_description");
-                    div4.appendChild(div5);
-                    const link3 = document.createElement('a');
-                    link3.classList.add("brown");
-                    link3.setAttribute("href", `/comments/${comment.id}`);
-                    link3.innerText = comment.description;
-                    div5.appendChild(link3);
-                    const p = document.createElement('p');
-                    // const strong = document.createElement('strong');
-                    p.innerText = moment(comment.datecreated).format('LLL');
-                    // p.appendChild(strong);
-                    div5.appendChild(p);
+                    l1 = document.createElement('a');
+                    l1.setAttribute("href", `/users/${comment.userid}`);
+                    i1 = document.createElement('img');
+                    i1.setAttribute("src", comment.imageurl);
+                    i1.classList.add('width-70');
+                    i1.classList.add('height-70');
+                    i1.classList.add('border-radius');
+                    l1.appendChild(i1);
+                    div2.appendChild(l1);
+                    div7 = document.createElement('div');
+                    div5.appendChild(div7);
+                    const div8 = document.createElement('div');
+                    l2 = document.createElement('a');
+                    l2.setAttribute("href", `/users/${post.userid}`);
+                    l2.innerText = post.username;
+                    div8.appendChild(l2);
+                    div7.appendChild(div8);
+                    const div9 = document.createElement('div');
+                    l3 = document.createElement('a');
+                    l3.setAttribute("href", `/topics/${post.topicid}`);
+                    l3.innerText = post.topicname;
+                    div9.appendChild(l3);
+                    div7.appendChild(div9);
+                    const div10 = document.createElement('div');
+                    div10.innerText = moment(post.datecreated).format('LLL');
+                    div7.appendChild(div10);
                     container.appendChild(div);
                 });
                 count = document.getElementsByClassName('container-item').length;
@@ -147,3 +127,67 @@ document.addEventListener('scroll', () => {
 });
 
 
+<div class="flex mb-30">
+    <div class="mr-15">
+    <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
+    </div>
+    <div>
+    <div><a href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
+<div><a href="/comments/<%= results[1][i].id %>"><%= results[1][i].description %></a></div>
+<div><%= moment(results[1][i].datecreated).format('LLL') %></div>
+    </div>
+    </div>
+
+// const div = document.createElement('div');
+// div.classList.add("et_pb_module");
+// div.classList.add("et_pb_blurb");
+// div.classList.add("et_pb_blurb_0");
+// // div.classList.add("et_animated");
+// div.classList.add("et_pb_bg_layout_light");
+// div.classList.add("et_pb_text_align_left");
+// div.classList.add("et_pb_blurb_position_left");
+// div.classList.add("container-item");
+// const div2 = document.createElement('div');
+// div2.classList.add("et_pb_blurb_content");
+// div.appendChild(div2);
+// const div3 = document.createElement('div');
+// div3.classList.add("et_pb_main_blurb_image");
+// div3.classList.add("pl-15");
+// div2.appendChild(div3);
+// const link = document.createElement('a');
+// link.setAttribute("href", `/users/${comment.userid}`);
+// const span = document.createElement('span');
+// span.classList.add("et_pb_image_wrap");
+// const img = document.createElement('img');
+// img.setAttribute("src", comment.imageurl);
+// // img.classList.add("et-waypoint");
+// img.classList.add("et_pb_animation_top");
+// img.classList.add("item-image");
+// div3.appendChild(link);
+// link.appendChild(span);
+// span.appendChild(img);
+// const div4 = document.createElement('div');
+// div4.classList.add("et_pb_blurb_container");
+// div2.appendChild(div4);
+// // const h4 = document.createElement('h4');
+// // h4.classList.add("et_pb_module_header");
+// // div4.appendChild(h4);
+// const link2 = document.createElement('a');
+// link2.classList.add("hd");
+// link2.setAttribute("href", `/users/${comment.userid}`);
+// link2.innerText = comment.username;
+// div4.appendChild(link2);
+// const div5 = document.createElement('div');
+// div5.classList.add("et_pb_blurb_description");
+// div4.appendChild(div5);
+// const link3 = document.createElement('a');
+// link3.classList.add("brown");
+// link3.setAttribute("href", `/comments/${comment.id}`);
+// link3.innerText = comment.description;
+// div5.appendChild(link3);
+// const p = document.createElement('p');
+// // const strong = document.createElement('strong');
+// p.innerText = moment(comment.datecreated).format('LLL');
+// // p.appendChild(strong);
+// div5.appendChild(p);
+// container.appendChild(div);

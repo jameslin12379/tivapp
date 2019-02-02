@@ -1,71 +1,105 @@
 <% include ../partials/header %>
 
-<div id="et-main-area" class="pt-100">
-    <div id="main-content">
-        <article id="post-209034" class="post-209034 page type-page status-publish hentry">
-            <div class="entry-content">
-                <div id="et-boc" class="et-boc">
-                    <div class="et_builder_inner_content et_pb_gutters3">
-                        <div class="et_pb_section et_pb_section_1 et_section_specialty">
-                            <div class="et_pb_row">
-                                <div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">
-                                    <div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">
-                                        <div class="et_pb_blurb_content">
-                                            <div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><img src="<%= results[0][0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image-large" /></span></div>
-                                            <div class="et_pb_blurb_container">
-                                                <h4 class="et_pb_module_header"><%= results[0][0].username %></h4>
-                                                <div class="et_pb_blurb_description">
-                                                    <div id="item-other-wide">
-                                                        <p><a href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/following"><span id="followingcount"><%= results[3][0].followingcount %></span> Following</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/followers"><%= results[4][0].followerscount %> Followers</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/topics"><%= results[5][0].topicscount %> Topics</a></p>
-                                                        <p><a href="/users/<%= results[0][0].id %>/comments"><%= results[6][0].commentscount %> Comments</a></p>
-                                                        <p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></p>
-                                                    </div>
-                                                    <p>Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
-                                                    <p><%= results[0][0].description %></p>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">-->
-                                    <!--<a class="et_pb_button et_pb_custom_button_icon et_pb_button_2 et_animated et_hover_enabled et_pb_bg_layout_light" href="#" data-icon="&#x45;">Full Profile</a>-->
-                                    <!--</div>-->
-                                </div>
-
-                                <div id="list" class="et_pb_column et_pb_column_2_3 et_pb_column_2   et_pb_specialty_column  et_pb_css_mix_blend_mode_passthrough">
-                                    <div id="container" class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0   et-last-child">
-                                        <% for(var i=0; i < results[1].length; i++) { %>
-                                        <div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">
-                                            <div class="et_pb_blurb_content">
-                                                <div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].id %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>
-                                                <div class="et_pb_blurb_container">
-                                                    <h4 class="et_pb_module_header">
-                                                        <a href="/users/<%= results[1][i].id %>"><%= results[1][i].username %></a>
-                                                    </h4>
-                                                    <!--<div class="et_pb_blurb_description">-->
-                                                    <!--</div>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <% } %>
-                                    </div>
-                                    <div id="loadMore">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div> </div>
-                </div> </div>
-        </article>
+<div class="container pd-tb-50">
+        <% if (alert.length > 0) { %>
+        <div class="alert alert-success" role="alert">
+            <%= alert %>
+        </div>
+        <% } %>
+        <div>
+            <div class="flex jc-center mb-15"><img src="<%= results[0][0].imageurl %>" alt="" class="width-100 height-100 border-radius" /></div>
+            <h4 class="text-center mb-15"><%= results[0][0].username %></h4>
+            <div class="other mb-15">
+                <div class="text-center mb-15"><a href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></div>
+                <div class="text-center mb-15"><a href="/users/<%= results[0][0].id %>/following"><span id="followingcount"><%= results[3][0].followingcount %></span> Following</a></div>
+                <div class="text-center mb-15"><a href="/users/<%= results[0][0].id %>/followers"><%= results[4][0].followerscount %> Followers</a></div>
+                <div class="text-center mb-15"><a href="/users/<%= results[0][0].id %>/topics"><%= results[5][0].topicscount %> Topics</a></div>
+                <div class="text-center mb-15"><a href="/users/<%= results[0][0].id %>/comments"><%= results[6][0].commentscount %> Comments</a></div>
+                <div class="text-center"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></div>
+            </div>
+            <p class="text-center">Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>
+            <p class="pd-lr-20p m-15"><%= results[0][0].description %></p>
+        </div>
+        <div id="container">
+            <% for(var i=0; i < results[1].length; i++) { %>
+            <div class="flex mb-30 container-item">
+                <a href="/users/<%= results[1][i].id %>" class="mr-15"><img src="<%= results[1][i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
+                <a href="/users/<%= results[1][i].id %>"><%= results[1][i].username %></a>
+            </div>
+            <% } %>
+        </div>
+        <div id="loadMore">
+        </div>
     </div>
+
+
 
     <script src="/javascripts/userloadmorefollowing.js"></script>
 
 
     <% include ../partials/footer %>
+
+<!--<div id="et-main-area" class="pt-100">-->
+    <!--<div id="main-content">-->
+        <!--<article id="post-209034" class="post-209034 page type-page status-publish hentry">-->
+            <!--<div class="entry-content">-->
+                <!--<div id="et-boc" class="et-boc">-->
+                    <!--<div class="et_builder_inner_content et_pb_gutters3">-->
+                        <!--<div class="et_pb_section et_pb_section_1 et_section_specialty">-->
+                            <!--<div class="et_pb_row">-->
+                                <!--<div id="item-large" class="et_pb_column et_pb_column_1_3 et_pb_column_3    et_pb_css_mix_blend_mode_passthrough">-->
+                                    <!--<div class="et_pb_module et_pb_blurb et_pb_blurb_5 et_animated et_pb_bg_layout_light  et_pb_text_align_center  et_pb_blurb_position_top">-->
+                                        <!--<div class="et_pb_blurb_content">-->
+                                            <!--<div class="et_pb_main_blurb_image"><span class="et_pb_image_wrap"><img src="<%= results[0][0].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image-large" /></span></div>-->
+                                            <!--<div class="et_pb_blurb_container">-->
+                                                <!--<h4 class="et_pb_module_header"><%= results[0][0].username %></h4>-->
+                                                <!--<div class="et_pb_blurb_description">-->
+                                                    <!--<div id="item-other-wide">-->
+                                                        <!--<p><a href="/users/<%= results[0][0].id %>"><%= results[2][0].postscount %> Posts</a></p>-->
+                                                        <!--<p><a href="/users/<%= results[0][0].id %>/following"><span id="followingcount"><%= results[3][0].followingcount %></span> Following</a></p>-->
+                                                        <!--<p><a href="/users/<%= results[0][0].id %>/followers"><%= results[4][0].followerscount %> Followers</a></p>-->
+                                                        <!--<p><a href="/users/<%= results[0][0].id %>/topics"><%= results[5][0].topicscount %> Topics</a></p>-->
+                                                        <!--<p><a href="/users/<%= results[0][0].id %>/comments"><%= results[6][0].commentscount %> Comments</a></p>-->
+                                                        <!--<p class="pb-1"><a href="/users/<%= results[0][0].id %>/likes"><%= results[7][0].likescount %> Likes</a></p>-->
+                                                    <!--</div>-->
+                                                    <!--<p>Joined <%= moment(results[0][0].datecreated).format('LLL') %></p>-->
+                                                    <!--<p><%= results[0][0].description %></p>-->
+
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<a class="et_pb_button et_pb_custom_button_icon et_pb_button_2 et_animated et_hover_enabled et_pb_bg_layout_light" href="#" data-icon="&#x45;">Full Profile</a>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--</div>-->
+
+                                <!--<div id="list" class="et_pb_column et_pb_column_2_3 et_pb_column_2   et_pb_specialty_column  et_pb_css_mix_blend_mode_passthrough">-->
+                                    <!--<div id="container" class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0   et-last-child">-->
+                                        <!--<% for(var i=0; i < results[1].length; i++) { %>-->
+                                        <!--<div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">-->
+                                            <!--<div class="et_pb_blurb_content">-->
+                                                <!--<div class="et_pb_main_blurb_image"><a href="/users/<%= results[1][i].id %>"><span class="et_pb_image_wrap"><img src="<%= results[1][i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>-->
+                                                <!--<div class="et_pb_blurb_container">-->
+                                                    <!--<h4 class="et_pb_module_header">-->
+                                                        <!--<a href="/users/<%= results[1][i].id %>"><%= results[1][i].username %></a>-->
+                                                    <!--</h4>-->
+                                                    <!--&lt;!&ndash;<div class="et_pb_blurb_description">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<% } %>-->
+                                    <!--</div>-->
+                                    <!--<div id="loadMore">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</div> </div>-->
+                <!--</div> </div>-->
+        <!--</article>-->
+    <!--</div>-->
 
 
 

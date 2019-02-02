@@ -25,8 +25,8 @@ document.addEventListener('scroll', () => {
                     link.classList.add("mr-15");
                     const img = document.createElement('img');
                     img.setAttribute("src", topic.imageurl);
-                    img.classList.add("width-100");
-                    img.classList.add("height-100");
+                    img.classList.add("width-70");
+                    img.classList.add("height-70");
                     img.classList.add("border-radius");
                     const link2 = document.createElement('a');
                     link2.setAttribute("href", `/topics/${topic.id}`);
