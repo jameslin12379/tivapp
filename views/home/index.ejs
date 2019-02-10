@@ -1,11 +1,12 @@
 <% include ../partials/header %>
 
-<div class="jumbotron">
+<div id="main" class="jumbotron">
     <div class="container pd-zero">
-    <h1 class="display-4">TIV</h1>
-    <p class="lead"><% if (!req.isAuthenticated()) { %>Upload something.<% } else { %>Follow Topics.<% } %></p>
-    <hr class="my-4">
-    <a class="btn btn-primary btn-lg" href="/topics" role="button">Explore</a>
+    <h1 class="text-center mb-20 bold ls-5 fs-5">TIV</h1>
+    <p class="lead text-center mb-20 ls-2"><% if (!req.isAuthenticated()) { %>Upload something.<% } else { %>Follow Topics.<% } %></p>
+        <div class="text-center">
+            <a class="btn btn-outline-secondary btn-lg" href="/topics" role="button">Explore</a>
+        </div>
     </div>
 </div>
 

@@ -1,47 +1,10 @@
 <% include ../partials/header %>
 
-<!--<div id="et-main-area" class="pt-100">-->
-    <!--<div id="main-content">-->
-        <!--<article id="post-209034" class="post-209034 page type-page status-publish hentry">-->
-            <!--<div class="entry-content">-->
-                <!--<div id="et-boc" class="et-boc">-->
-                    <!--<div class="et_builder_inner_content et_pb_gutters3">-->
-                        <!--<div class="et_pb_section et_pb_section_1 et_section_specialty">-->
-                            <!--<div class="et_pb_row">-->
-
-
-                                <!--<div id="list" class="et_pb_column et_pb_column_2_3 et_pb_column_2   et_pb_specialty_column  et_pb_css_mix_blend_mode_passthrough">-->
-                                    <!--<div id="container" class="et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0   et-last-child">-->
-                                        <!--<% for(var i=0; i < results.length; i++) { %>-->
-                                        <!--<div class="et_pb_module et_pb_blurb et_pb_blurb_0 et_animated et_pb_bg_layout_light  et_pb_text_align_left  et_pb_blurb_position_left container-item">-->
-                                            <!--<div class="et_pb_blurb_content">-->
-                                                <!--<div class="et_pb_main_blurb_image"><a href="/topics/<%= results[i].id %>"><span class="et_pb_image_wrap"><img src="<%= results[i].imageurl %>" alt="" class="et-waypoint et_pb_animation_top item-image" /></span></a></div>-->
-                                                <!--<div class="et_pb_blurb_container">-->
-                                                    <!--<h4 class="et_pb_module_header">-->
-                                                        <!--<a href="/topics/<%= results[i].id %>"><%= results[i].name %></a>-->
-                                                    <!--</h4>-->
-                                                    <!--&lt;!&ndash;<div class="et_pb_blurb_description">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<% } %>-->
-                                    <!--</div>-->
-                                    <!--<div id="loadMore">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-
-                            <!--</div>-->
-                        <!--</div> </div>-->
-                <!--</div> </div>-->
-        <!--</article>-->
-    <!--</div>-->
-
 <div id="container" class="container pd-tb-50">
     <% for(var i=0; i < results.length; i++) { %>
-      <div class="flex mb-30 container-item">
-          <a href="/topics/<%= results[i].id %>" class="mr-15"><img src="<%= results[i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
-          <a href="/topics/<%= results[i].id %>"><%= results[i].name %></a>
+      <div class="flex mb-50 container-item content">
+          <a href="/topics/<%= results[i].id %>" class="mr-15"><img src="<%= results[i].imageurl %>" alt="" class="width-60 height-60 border-radius" /></a>
+          <a class="bold" href="/topics/<%= results[i].id %>"><%= results[i].name %></a>
       </div>
     <% } %>
 </div>

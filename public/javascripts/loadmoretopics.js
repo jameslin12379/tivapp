@@ -18,19 +18,20 @@ document.addEventListener('scroll', () => {
                 result.forEach(topic => {
                     const div = document.createElement('div');
                     div.classList.add("flex");
-                    div.classList.add("mb-30");
+                    div.classList.add("mb-50");
                     div.classList.add("container-item");
                     const link = document.createElement('a');
                     link.setAttribute("href", `/topics/${topic.id}`);
                     link.classList.add("mr-15");
                     const img = document.createElement('img');
                     img.setAttribute("src", topic.imageurl);
-                    img.classList.add("width-70");
-                    img.classList.add("height-70");
+                    img.classList.add("width-60");
+                    img.classList.add("height-60");
                     img.classList.add("border-radius");
                     const link2 = document.createElement('a');
                     link2.setAttribute("href", `/topics/${topic.id}`);
                     link2.innerText = topic.name;
+                    link2.classList.add("bold");
                     div.appendChild(link);
                     link.appendChild(img);
                     div.appendChild(link2);
