@@ -687,6 +687,10 @@ body {
     margin-bottom: 50px;
 }
 
+.mb-0 {
+    margin-bottom: 0!important;
+}
+
 .mr-15 {
     margin-right: 15px;
 }
@@ -854,7 +858,7 @@ a:hover {
     /*}*/
 }
 
-p {
+p, span {
     color: rgba(0,0,0,.5)!important;
 }
 

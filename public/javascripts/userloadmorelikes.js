@@ -22,7 +22,7 @@ document.addEventListener('scroll', () => {
                 result = result.results;
                 result.forEach(post => {
                     const div = document.createElement('div');
-                    div.classList.add("mb-100");
+                    div.classList.add("mb-50");
                     div.classList.add("container-item");
                     const div2 = document.createElement('div');
                     div2.classList.add("mb-15");
@@ -30,12 +30,14 @@ document.addEventListener('scroll', () => {
                         const link = document.createElement('a');
                         link.setAttribute("href", `/posts/${post.id}`);
                         link.innerText = post.name;
+                        link.classList.add("bold");
                         div2.appendChild(link);
                     }
                     else {
                         const link = document.createElement('a');
                         link.setAttribute("href", `/posts/${post.id}`);
                         link.innerText = `/posts/${post.id}`;
+                        link.classList.add("bold");
                         div2.appendChild(link);
                     }
                     div.appendChild(div2);
@@ -80,8 +82,8 @@ document.addEventListener('scroll', () => {
                     l1.setAttribute("href", `/users/${post.userid}`);
                     i1 = document.createElement('img');
                     i1.setAttribute("src", post.userimageurl);
-                    i1.classList.add('width-70');
-                    i1.classList.add('height-70');
+                    i1.classList.add('width-60');
+                    i1.classList.add('height-60');
                     i1.classList.add('border-radius');
                     l1.appendChild(i1);
                     div6.appendChild(l1);
@@ -91,15 +93,17 @@ document.addEventListener('scroll', () => {
                     l2 = document.createElement('a');
                     l2.setAttribute("href", `/users/${post.userid}`);
                     l2.innerText = post.username;
+                    l2.classList.add("bold");
                     div8.appendChild(l2);
                     div7.appendChild(div8);
                     const div9 = document.createElement('div');
                     l3 = document.createElement('a');
                     l3.setAttribute("href", `/topics/${post.topicid}`);
                     l3.innerText = post.topicname;
+                    l3.classList.add("bold");
                     div9.appendChild(l3);
                     div7.appendChild(div9);
-                    const div10 = document.createElement('div');
+                    const div10 = document.createElement('p');
                     div10.innerText = moment(post.datecreated).format('LLL');
                     div7.appendChild(div10);
                     container.appendChild(div);

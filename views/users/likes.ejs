@@ -34,12 +34,12 @@
     </div>
     <div id="container">
         <% for(var i=0; i < results[1].length; i++) { %>
-        <div class="mb-100 container-item">
+        <div class="mb-50 container-item">
             <div class="mb-15">
                 <% if (results[1][i].posttype === 1) { %>
-                <a href="/posts/<%= results[1][i].id %>"><%= results[1][i].name %></a>
+                <a class="bold" href="/posts/<%= results[1][i].id %>"><%= results[1][i].name %></a>
                 <% } else { %>
-                <a href="/posts/<%= results[1][i].id %>">/posts/<%= results[1][i].id %></a>
+                <a class="bold" href="/posts/<%= results[1][i].id %>">/posts/<%= results[1][i].id %></a>
                 <% } %>
             </div>
 
@@ -56,12 +56,12 @@
             <% } %>
             <div class="flex">
                 <div class="mr-15">
-                    <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].userimageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
+                    <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].userimageurl %>" alt="" class="width-60 height-60 border-radius" /></a>
                 </div>
                 <div>
-                    <div><a href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
-                    <div><a href="/topics/<%= results[1][i].topicid %>"><%= results[1][i].topicname %></a></div>
-                    <div><%= moment(results[1][i].datecreated).format('LLL') %></div>
+                    <div><a class="bold" href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
+                    <div><a class="bold" href="/topics/<%= results[1][i].topicid %>"><%= results[1][i].topicname %></a></div>
+                    <p><%= moment(results[1][i].datecreated).format('LLL') %></p>
                 </div>
             </div>
         </div>

@@ -45,7 +45,7 @@ commentform.addEventListener('submit', (e)=> {
                     commentformtextarea.value = '';
                 const div = document.createElement('div');
                 div.classList.add("flex");
-                div.classList.add("mb-30");
+                div.classList.add("mb-50");
                 const div2 = document.createElement('div');
                 div2.classList.add("mr-15");
                 div.appendChild(div2);
@@ -53,8 +53,8 @@ commentform.addEventListener('submit', (e)=> {
                 l1.setAttribute("href", `/users/${result.comment[0].userid}`);
                 i1 = document.createElement('img');
                 i1.setAttribute("src", result.comment[0].imageurl);
-                i1.classList.add('width-70');
-                i1.classList.add('height-70');
+                i1.classList.add('width-60');
+                i1.classList.add('height-60');
                 i1.classList.add('border-radius');
                 l1.appendChild(i1);
                 div2.appendChild(l1);
@@ -64,6 +64,7 @@ commentform.addEventListener('submit', (e)=> {
                 l2 = document.createElement('a');
                 l2.setAttribute("href", `/users/${result.comment[0].userid}`);
                 l2.innerText = result.comment[0].username;
+                l2.classList.add("bold");
                 div4.appendChild(l2);
                 div3.appendChild(div4);
                 const div5 = document.createElement('div');
@@ -72,7 +73,7 @@ commentform.addEventListener('submit', (e)=> {
                 l3.innerText = result.comment[0].description;
                 div5.appendChild(l3);
                 div3.appendChild(div5);
-                const div6 = document.createElement('div');
+                const div6 = document.createElement('p');
                 div6.innerText = moment(result.comment[0].datecreated).format('LLL');
                 div3.appendChild(div6);
                 container.insertBefore(div, container.firstChild);

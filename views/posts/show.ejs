@@ -9,9 +9,9 @@
     <div class="mb-30">
         <div class="mb-15">
             <% if (results[0][0].posttype === 1) { %>
-            <a href="/posts/<%= results[0][0].id %>"><%= results[0][0].name %></a>
+            <a class="bold" href="/posts/<%= results[0][0].id %>"><%= results[0][0].name %></a>
             <% } else { %>
-            <a href="/posts/<%= results[0][0].id %>">/posts/<%= results[0][0].id %></a>
+            <a class="bold" href="/posts/<%= results[0][0].id %>">/posts/<%= results[0][0].id %></a>
             <% } %>
         </div>
 
@@ -29,22 +29,22 @@
 
         <div class="flex mb-15">
             <div class="mr-15">
-                <a href="/users/<%= results[0][0].userid %>"><img src="<%= results[0][0].userimageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
+                <a href="/users/<%= results[0][0].userid %>"><img src="<%= results[0][0].userimageurl %>" alt="" class="width-60 height-60 border-radius" /></a>
             </div>
             <div>
-                <div><a href="/users/<%= results[0][0].userid %>"><%= results[0][0].username %></a></div>
-                <div><a href="/topics/<%= results[0][0].topicid %>"><%= results[0][0].topicname %></a></div>
-                <div><%= moment(results[0][0].datecreated).format('LLL') %></div>
+                <div><a class="bold" href="/users/<%= results[0][0].userid %>"><%= results[0][0].username %></a></div>
+                <div><a class="bold" href="/topics/<%= results[0][0].topicid %>"><%= results[0][0].topicname %></a></div>
+                <p class="mb-0"><%= moment(results[0][0].datecreated).format('LLL') %></p>
             </div>
         </div>
 
 
-        <div class="mb-15">
+        <div>
             <span class="mr-15"><span id="commentscount"><%= results[2][0].commentscount %></span> Comments</span>
             <span class="mr-15"><span id="likescount"><%= results[3][0].likescount %></span> Likes</span>
             <span class="mr-15"><%= results[0][0].views %> Views</span>
             <% if (req.isAuthenticated()) { %>
-            <button id="likeunlike" class="btn btn-outline-primary mr-15 va">
+            <button id="likeunlike" class="btn btn-outline-secondary mr-15 va">
                     <% if (result[0].status === 0) { %>
                     Like
                     <% } else { %>
@@ -56,10 +56,10 @@
             <% } else if (req.user.id !== results[0][0].userid) { %>
             <% } else { %>
             <% if (results[0][0].posttype === 1) { %>
-                <a class="btn btn-outline-primary mr-15 va" href="/posts/<%= results[0][0].id %>/edit">Edit</a>
+                <a class="btn btn-outline-secondary mr-15 va" href="/posts/<%= results[0][0].id %>/edit">Edit</a>
             <% } %>
             <form action="/posts/<%= results[0][0].id %>?_method=DELETE" method="post" class="inline">
-                <button type="submit" class="btn btn-outline-primary va">Delete</button>
+                <button type="submit" class="btn btn-outline-secondary va">Delete</button>
             </form>
             <% } %>
         </div>
@@ -78,20 +78,20 @@
         <div class="form-group">
             <textarea class="form-control" id="commentformtextarea" rows="3" placeholder="Description" name="description" required></textarea>
         </div>
-        <div class="flex jc-flexend"><button type="submit" class="btn btn-primary">Submit</button></div>
+        <div class="flex jc-flexend"><button type="submit" class="btn btn-outline-secondary">Submit</button></div>
     </form>
     <% } %>
 
     <div id="container">
         <% for(var i=0; i < results[1].length; i++) { %>
-        <div class="flex mb-30 container-item">
+        <div class="flex mb-50 container-item">
             <div class="mr-15">
-                <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
+                <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].imageurl %>" alt="" class="width-60 height-60 border-radius" /></a>
             </div>
             <div>
-                <div><a href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
+                <div><a class="bold" href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
                 <div><a href="/comments/<%= results[1][i].id %>"><%= results[1][i].description %></a></div>
-                <div><%= moment(results[1][i].datecreated).format('LLL') %></div>
+                <p><%= moment(results[1][i].datecreated).format('LLL') %></p>
             </div>
         </div>
         <% } %>

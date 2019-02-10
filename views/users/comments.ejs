@@ -23,14 +23,14 @@
     </div>
     <div id="container">
         <% for(var i=0; i < results[1].length; i++) { %>
-        <div class="flex mb-30 container-item">
+        <div class="flex mb-50 container-item">
             <div class="mr-15">
-                <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
+                <a href="/users/<%= results[1][i].userid %>"><img src="<%= results[1][i].imageurl %>" alt="" class="width-60 height-60 border-radius" /></a>
             </div>
             <div>
-                <div><a href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
+                <div><a class="bold" href="/users/<%= results[1][i].userid %>"><%= results[1][i].username %></a></div>
                 <div><a href="/comments/<%= results[1][i].id %>"><%= results[1][i].description %></a></div>
-                <div><%= moment(results[1][i].datecreated).format('LLL') %></div>
+                <p><%= moment(results[1][i].datecreated).format('LLL') %></p>
             </div>
         </div>
         <% } %>
