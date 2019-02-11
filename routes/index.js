@@ -142,7 +142,7 @@ router.get('/', function(req, res, next) {
     if (!req.isAuthenticated()){
         res.render('home/index', {
             req: req,
-            title: 'TIV67.com',
+            title: 'Tiv67',
             alert: req.flash('alert')
         });
     }
@@ -157,7 +157,7 @@ router.get('/', function(req, res, next) {
         if (results[0].status === 0){
             res.render('home/index', {
                 req: req,
-                title: 'TIV67.com',
+                title: 'Tiv67',
                 alert: req.flash('alert')
             });
         }
@@ -173,7 +173,7 @@ router.get('/', function(req, res, next) {
                 res.render('home/indexfeed', {
                     req: req,
                     results: results,
-                    title: 'TIV67.com',
+                    title: 'Tiv67',
                     alert: req.flash('alert')
                 });
             }
@@ -655,7 +655,7 @@ router.delete('/userfollowings', isAuthenticated, function(req, res) {
 router.get('/texts/new', isAuthenticated, function(req, res){
     res.render('posts/texts/new', {
         req: req,
-        title: 'Post text',
+        title: 'Create text',
         errors: req.flash('errors'),
         inputs: req.flash('inputs')
     });
@@ -664,7 +664,7 @@ router.get('/texts/new', isAuthenticated, function(req, res){
 router.get('/images/new', isAuthenticated, function(req, res){
     res.render('posts/images/new', {
         req: req,
-        title: 'Post image',
+        title: 'Create image',
         errors: req.flash('errors'),
         inputs: req.flash('inputs')
     });
@@ -673,7 +673,7 @@ router.get('/images/new', isAuthenticated, function(req, res){
 router.get('/videos/new', isAuthenticated, function(req, res){
     res.render('posts/videos/new', {
         req: req,
-        title: 'Post video',
+        title: 'Create video',
         errors: req.flash('errors'),
         inputs: req.flash('inputs')
     });
