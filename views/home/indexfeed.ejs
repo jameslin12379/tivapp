@@ -3,16 +3,16 @@
 <div class="container pd-tb-50">
     <% for(var i=0; i < results[0].length; i++) { %>
 
-    <div class="flex mb-30 container-item">
-        <a href="/users/<%= results[0][i].id %>" class="mr-15"><img src="<%= results[0][i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
-        <a href="/users/<%= results[0][i].id %>"><%= results[0][i].username %></a>
+    <div class="flex mb-50 container-item">
+        <a href="/users/<%= results[0][i].id %>" class="mr-15"><img src="<%= results[0][i].imageurl %>" alt="" class="width-60 height-60 border-radius" /></a>
+        <a class="bold" href="/users/<%= results[0][i].id %>"><%= results[0][i].username %></a>
     </div>
 
 <% } %>
 <% for(var i=0; i < results[1].length; i++) { %>
-<div class="flex mb-30 container-item">
-    <a href="/topics/<%= results[1][i].id %>" class="mr-15"><img src="<%= results[1][i].imageurl %>" alt="" class="width-70 height-70 border-radius" /></a>
-    <a href="/topics/<%= results[1][i].id %>"><%= results[1][i].name %></a>
+<div class="flex mb-50 container-item">
+    <a href="/topics/<%= results[1][i].id %>" class="mr-15"><img src="<%= results[1][i].imageurl %>" alt="" class="width-60 height-60 border-radius" /></a>
+    <a class="bold" href="/topics/<%= results[1][i].id %>"><%= results[1][i].name %></a>
 </div>
 <% } %>
 </div>
